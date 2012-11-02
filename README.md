@@ -2,7 +2,7 @@
 CoreFoundation
 ==============
 
-FFI based wrappers for a subset of core foundatio: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other OS X libraries.
+FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other OS X libraries.
 
 Although the CF collection classes can store arbitrary pointer sized values this wrapper only supports storing CFTypes.
 
