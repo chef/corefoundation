@@ -23,20 +23,34 @@ module CF
   attach_function 'CFNumberGetValue', [:cfnumberref, :cf_number_type, :pointer], :uchar
   attach_function 'CFNumberCreate', [:pointer, :cf_number_type, :pointer], :cfnumberref
   attach_function 'CFNumberIsFloatType', [:pointer], :uchar
+
+  # Wrapper for CFNumberRef
+  #
+  #
   class Number < Base
     register_type 'CFNumber'
+
+    # Constructs a CF::Number from a float
+    # @param [Float] float
+    # @return [CF::Number]
     def self.from_f(float)
       p = FFI::MemoryPointer.new(:double)
       p.write_double(float.to_f)
       new(CF.CFNumberCreate(nil, :kCFNumberDoubleType, p)).release_on_gc
     end
 
+    # Constructs a CF::Number from an integer
+    # @param [Integer] int
+    # @return [CF::Number]
     def self.from_i(int)
       p = FFI::MemoryPointer.new(:int64)
       p.put_int64(0,int.to_i)
       new(CF.CFNumberCreate(nil, :kCFNumberSInt64Type, p)).release_on_gc
     end
 
+    # Converts the CF::Number to either an Integer or a Float, depending on the result of CFNumberIsFloatType
+    #
+    # @return [Integer, Float]
     def to_ruby
       if CF.CFNumberIsFloatType(self) == 0
         to_i
@@ -45,6 +59,9 @@ module CF
       end
     end
 
+    # Converts the CF::Number to an integer
+    # May raise if the conversion cannot be done without loss of precision
+    # @return [Integer]
     def to_i
       p = FFI::MemoryPointer.new(:int64)
       if CF.CFNumberGetValue(self, :kCFNumberSInt64Type, p) != 0
@@ -54,6 +71,9 @@ module CF
       end
     end
 
+    # Converts the CF::Number to a float
+    # May raise if the conversion cannot be done without loss of precision
+    # @return [Float]
     def to_f
       p = FFI::MemoryPointer.new(:double)
       if CF.CFNumberGetValue(self, :kCFNumberDoubleType, p) != 0
