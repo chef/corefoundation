@@ -3,12 +3,14 @@ module CF
   attach_variable 'kCFBooleanFalse', :pointer
   attach_function 'CFBooleanGetValue', [:pointer], :uchar
 
-  # Wrapper for CFBooleanRef
+  # Wrapper for CFBooleanRef.
   # Typically you use the CF::Boolean::TRUE and CF::Boolean::FALSE constants
   #
   class Boolean < Base
     register_type("CFBoolean")
+    # A constant containing kCFBooleanTrue
     TRUE = new(CF.kCFBooleanTrue)
+    # A constant containing kCFBooleanFalse
     FALSE = new(CF.kCFBooleanFalse)
 
     # returns a ruby true/false value

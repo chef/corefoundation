@@ -99,7 +99,7 @@ module CF
     end
 
     # Returns the wrapped pointer
-    #
+    # @return [FFI::Pointer]
     def to_ptr
       @ptr
     end

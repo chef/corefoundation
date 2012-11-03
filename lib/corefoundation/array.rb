@@ -28,7 +28,7 @@ module CF
   # Values returned by the accessor methods or yielded by the block are retained and marked as releasable on garbage collection
   # This means you can safely use the returned values even if the CFArray itself has been destroyed
   #
-  #
+  # Unlike ruby arrays you cannot set arbitary array indexes - You can only set indexes in the range 0..length
   class Array < Base
     include Enumerable
     register_type("CFArray")
@@ -113,6 +113,8 @@ module CF
 
     alias_method :push, :<<
 
+    # Returns the number of elements the array contains
+    # @return [Integer]
     def length
       CF.CFArrayGetCount(self)
     end

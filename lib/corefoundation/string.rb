@@ -17,6 +17,7 @@ module CF
     include Comparable
     register_type("CFString")
 
+    # The cfstring encoding for UTF8
     UTF8 = 0x08000100 #From cfstring.h
 
 
