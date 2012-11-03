@@ -7,9 +7,13 @@ describe CF::String do
       CF::String.from_string('A CF string').should be_a(CF::String)
     end
 
-    context 'with invalid data' do
-      it 'returns nil' do
-        CF::String.from_string("\xff\xff\xff".force_encoding('UTF-8')).should be_nil
+    # The intent is to force feed CF::String with an invalid utf-8 string
+    # but jruby doesn't seem to allow this to be constructed
+    unless RUBY_ENGINE == 'jruby'
+      context 'with invalid data' do
+        it 'returns nil' do
+          CF::String.from_string("\xff\xff\xff".force_encoding('UTF-8')).should be_nil
+        end
       end
     end
   end
