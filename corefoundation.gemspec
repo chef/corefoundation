@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.date = %q{2012-10-16}
   s.description = %q{FFI based Ruby wrappers for Core Foundation }
   s.email = %q{frederick.cheung@gmail.com}
-  s.files += Dir["lib/*.rb"]
+  s.files += Dir["lib/**/*.rb"]
   s.files += Dir["spec/**/*"]
   s.files += ['README.md']
   s.license = 'MIT'
