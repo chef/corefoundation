@@ -10,6 +10,9 @@ module CF
 
   attach_function 'CFStringCompare', [:cfstringref, :cfstringref, :cfoptionflags], :cfcomparisonresult
 
+  # Wrapper class for CFString
+  #
+  # Unlike ruby, CFString is not an arbitrary bag of bytes - the data will be converted to a collection of unicode characters
   class String < Base
     include Comparable
     register_type("CFString")
@@ -17,22 +20,34 @@ module CF
     UTF8 = 0x08000100 #From cfstring.h
 
 
+    # Creates a string from a ruby string
+    # The string must be convertable to UTF-8
+    #
+    # @param [String] s 
+    # @return [CF::String]
     def self.from_string(s)
       s_utf = s.encode('UTF-8')
       raw = CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)
       raw.null? ? nil : new(raw).release_on_gc
     end
 
+    # Returns the length, in unicode characters of the string
+    # @return [Integer]
     def length
       CF.CFStringGetLength(self)
     end
 
+    # Compares the receiver with the argument
+    # @param [CF::String] other
+    # @return [Integer]
     def <=>(other)
       Base.check_cftype(other)
       CF.CFStringCompare(self,other,0)
     end
 
-
+    # Converts the CF::String to a UTF-8 ruby string 
+    #
+    # @return [String]
     def to_s
       max_size = CF.CFStringGetMaximumSizeForEncoding(length, UTF8)
       range = CF::Range.new
