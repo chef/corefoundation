@@ -31,4 +31,9 @@ If you use the raw api (eg `CF.CFArrayCreate`) then you're on your own.
 
 Compatibility
 =============
-Requires ruby 1.9 due to use of encoding related methods. Should work in MRI and jruby. Not compatible with rubinius due to rubinius' ffi implemenation not supporting certain features
+Requires ruby 1.9 due to use of encoding related methods. Should work in MRI and jruby. Not compatible with rubinius due to rubinius' ffi implemenation not supporting certain features.
+
+License
+=======
+
+Released under the MIT license. See LICENSE
