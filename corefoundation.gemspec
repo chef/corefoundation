@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
   s.files += Dir["spec/**/*"]
   s.files += ['README.md', 'LICENSE']
   s.license = 'MIT'
-  s.has_rdoc = false
   s.homepage = %q{http://github.com/fcheung/corefoundation}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.8.10}
