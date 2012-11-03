@@ -98,6 +98,13 @@ module CF
       @ptr = FFI::Pointer.new(ptr)
     end
 
+    # Whether the instance is the CFNull singleton
+    #
+    # @return [Boolean]
+    def null?
+      equals?(CF::NULL)
+    end
+
     # Returns the wrapped pointer
     # @return [FFI::Pointer]
     def to_ptr

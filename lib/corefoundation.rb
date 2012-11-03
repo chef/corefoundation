@@ -1,5 +1,6 @@
 require 'ffi'
 require 'corefoundation/base'
+require 'corefoundation/null'
 require 'corefoundation/string'
 require 'corefoundation/array'
 require 'corefoundation/boolean'
