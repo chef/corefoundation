@@ -19,7 +19,8 @@ module CF
 
     def self.from_string(s)
       s_utf = s.encode('UTF-8')
-      new(CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)).release_on_gc
+      raw = CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)
+      raw.null? ? nil : new(raw).release_on_gc
     end
 
     def length

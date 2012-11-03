@@ -6,6 +6,12 @@ describe CF::String do
     it 'should return a CF::String' do
       CF::String.from_string('A CF string').should be_a(CF::String)
     end
+
+    context 'with invalid data' do
+      it 'returns nil' do
+        CF::String.from_string("\xff\xff\xff".force_encoding('UTF-8')).should be_nil
+      end
+    end
   end
 
   describe '#to_s' do
