@@ -1,6 +1,7 @@
 module CF
   typedef :pointer, :cfarrayref
 
+  # @private
   class ArrayCallbacks < FFI::Struct
     layout :version, :cfindex, #cfindex
            :retain, :pointer,

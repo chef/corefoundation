@@ -1,1 +1,1 @@
-lib/**/*.rb - LICENSE
+--no-private  lib/**/*.rb - LICENSE

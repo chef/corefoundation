@@ -1,4 +1,7 @@
 
+# The top level namespace for the corefoundation library. The raw FFI generated methods are attached here
+#
+#
 module CF
   extend FFI::Library
   ffi_lib '/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation'
@@ -18,6 +21,7 @@ module CF
   end
 
 
+  # @private
   class Range < FFI::Struct
     layout :location, :cfindex,
            :length, :cfindex
@@ -34,9 +38,13 @@ module CF
   attach_function 'CFCopyDescription', [:cftyperef], :cftyperef
   attach_function 'CFGetTypeID', [:cftyperef], :cftypeid
 
+  # The base class for all of the wrapper classes 
+  #
+  # @abstract
   class Base  
     @@type_map = {}
 
+    # @private
     class Releaser
       def initialize(ptr)
         @address  = ptr.address
