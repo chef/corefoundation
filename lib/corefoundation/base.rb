@@ -164,7 +164,7 @@ module CF
     #
     def equals?(other)
       if other.is_a?(CF::Base)
-        address == other.address
+        @ptr.address == other.to_ptr.address
       else
         false
       end
