@@ -1,3 +1,4 @@
+# Rubyinteger
 class Integer
   # Converts the Integer to a {CF::Number} using {CF::Number.from_i}
   # @return [CF::Number]
@@ -6,6 +7,7 @@ class Integer
   end
 end
 
+# Ruby float class
 class Float
   # Converts the Float to a {CF::Number} using {CF::Number.from_f}
   # @return [CF::Number]
@@ -14,6 +16,7 @@ class Float
   end
 end
 
+# Ruby array class
 class Array
   # Converts the Array to an immutable {CF::Array} by calling `to_cf` on each element it contains
   # @return [CF::Number]
@@ -22,6 +25,7 @@ class Array
   end
 end
 
+# Ruby true class
 class TrueClass
   # Returns a CF::Boolean object representing true
   # @return [CF::Boolean]
@@ -30,6 +34,7 @@ class TrueClass
   end
 end
 
+# Ruby false class
 class FalseClass
   # Returns a CF::Boolean object representing false
   # @return [CF::Boolean]
@@ -38,6 +43,7 @@ class FalseClass
   end
 end
 
+# Ruby String class
 class String
   # Returns a {CF::String} or {CF::Data} representing the string.
   # If the string has the encoding ASCII_8BIt a {CF::Data} is returned, if not a {CF::String} is returned
@@ -52,6 +58,7 @@ class String
   end
 end
 
+# Ruby Time class
 class Time
   # Returns a {CF::Date} representing the time.
   # @return [CF::Date]
@@ -60,6 +67,7 @@ class Time
   end
 end
 
+# Ruby Hash class
 class Hash
   # Converts the Hash to an mutable {CF::Dictionary} by calling `to_cf` on each key and value it contains
   # @return [CF::Dictionary]
