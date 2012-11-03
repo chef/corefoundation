@@ -1,4 +1,5 @@
 module CF
+  # @private
   class DictionaryKeyCallbacks < FFI::Struct
     layout :version, :cfindex,
            :retain, :pointer,
@@ -7,7 +8,7 @@ module CF
            :equal, :pointer,
            :hash, :pointer
   end
-
+  # @private
   class DictionaryValueCallbacks < FFI::Struct
     layout :version, :cfindex,
            :retain, :pointer,
