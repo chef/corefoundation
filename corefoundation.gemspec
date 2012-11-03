@@ -1,6 +1,10 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'corefoundation/version'
+
 Gem::Specification.new do |s|
   s.name = %q{corefoundation}
-  s.version = "0.1.0"
+  s.version = CF::VERSION
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Frederick Cheung"]
@@ -21,5 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ffi"
   s.add_development_dependency "rspec", "~>2.10"
   s.add_development_dependency "rake"
+  s.add_development_dependency "yard"
+  s.add_development_dependency "redcarpet"
 end
 
