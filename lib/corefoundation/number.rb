@@ -23,12 +23,15 @@ module CF
   attach_function 'CFNumberGetValue', [:cfnumberref, :cf_number_type, :pointer], :uchar
   attach_function 'CFNumberCreate', [:pointer, :cf_number_type, :pointer], :cfnumberref
   attach_function 'CFNumberIsFloatType', [:pointer], :uchar
+  attach_function 'CFNumberCompare', [:cfnumberref, :cfnumberref, :pointer], :cfcomparisonresult
 
   # Wrapper for CFNumberRef
   #
   #
   class Number < Base
     register_type 'CFNumber'
+    include Comparable
+
 
     # Constructs a CF::Number from a float
     # @param [Float] float
@@ -47,6 +50,15 @@ module CF
       p.put_int64(0,int.to_i)
       new(CF.CFNumberCreate(nil, :kCFNumberSInt64Type, p)).release_on_gc
     end
+
+    # Compares the receiver with the argument
+    # @param [CF::Number] other
+    # @return [Integer]
+    def <=>(other)
+      raise TypeError, "argument should be CF::Number" unless other.is_a?(CF::Number)
+      CF.CFNumberCompare(self,other,nil)
+    end
+
 
     # Converts the CF::Number to either an Integer or a Float, depending on the result of CFNumberIsFloatType
     #

@@ -17,6 +17,11 @@ describe CF::Number do
       end
     end
   end
+
+  it 'should be comparable' do
+    (CF::Number.from_f('3.1415') <= CF::Number.from_i(4)).should be_true
+  end
+
   describe('from_f') do 
     it 'should create a cf number from a float' do
       CF::Number.from_f('3.1415').should be_a(CF::Number)
