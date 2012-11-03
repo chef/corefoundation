@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email = %q{frederick.cheung@gmail.com}
   s.files += Dir["lib/**/*.rb"]
   s.files += Dir["spec/**/*"]
-  s.files += ['README.md']
+  s.files += ['README.md', 'LICENSE']
   s.license = 'MIT'
   s.has_rdoc = false
   s.homepage = %q{http://github.com/fcheung/corefoundation}
