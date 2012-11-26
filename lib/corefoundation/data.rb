@@ -23,7 +23,11 @@ module CF
     # @return [String]
     def to_s
       ptr = CF.CFDataGetBytePtr(self)
-      ptr.read_string(CF.CFDataGetLength(self)).force_encoding(Encoding::ASCII_8BIT)
+      if CF::String::HAS_ENCODING
+        ptr.read_string(CF.CFDataGetLength(self)).force_encoding(Encoding::ASCII_8BIT)
+      else
+        ptr.read_string(CF.CFDataGetLength(self))
+      end
     end
 
     # The size in bytes of the CFData
