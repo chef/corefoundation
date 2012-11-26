@@ -50,12 +50,30 @@ class String
   # 
   # @return [CF::String, CF::Data]
   def to_cf
-    if encoding == Encoding::ASCII_8BIT
-      CF::Data.from_string self
+    if defined? encoding
+      if encoding == Encoding::ASCII_8BIT
+        CF::Data.from_string self
+      else
+        CF::String.from_string self
+      end
     else
-      CF::String.from_string self
+      begin
+        ::Iconv.conv('UTF-8', 'UTF-8', self)
+        CF::String.from_string self
+      rescue Iconv::IllegalSequence => e
+        CF::Data.from_string self
+      end
     end
   end
+
+  def to_cf_string
+    CF::String.from_string self
+  end
+  
+  def to_cf_data
+    CF::Data.from_string self
+  end
+  
 end
 
 # Ruby Time class

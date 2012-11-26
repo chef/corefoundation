@@ -15,13 +15,17 @@ describe 'extensions' do
 
   context 'with a 8bit string' do
     it 'should return a cf data' do
-      '123'.encode(Encoding::ASCII_8BIT).to_cf.should be_a(CF::Data)
+      if CF::String::HAS_ENCODING
+        '123'.encode(Encoding::ASCII_8BIT).to_cf.should be_a(CF::Data)
+      end
+      '123'.to_cf_data.should be_a(CF::Data)
     end
   end
 
   context 'with an asciistring' do
     it 'should return a cf string' do
       '123'.to_cf.should be_a(CF::String)
+      '123'.to_cf_string.should be_a(CF::String)
     end
   end
 

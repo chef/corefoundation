@@ -1,4 +1,6 @@
 require 'ffi'
+require 'iconv' if RUBY_VERSION < "1.9"
+
 require 'corefoundation/base'
 require 'corefoundation/null'
 require 'corefoundation/string'
