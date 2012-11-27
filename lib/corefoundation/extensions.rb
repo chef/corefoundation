@@ -50,22 +50,41 @@ class String
   # 
   # @return [CF::String, CF::Data]
   def to_cf
+    self.binary? ? self.to_cf_data : self.to_cf_string
+  end
+
+  def binary?
     if defined? encoding
-      if encoding == Encoding::ASCII_8BIT
-        CF::Data.from_string self
-      else
-        CF::String.from_string self
-      end
+      encoding == Encoding::ASCII_8BIT
     else
-      begin
-        ::Iconv.conv('UTF-8', 'UTF-8', self)
-        CF::String.from_string self
-      rescue Iconv::IllegalSequence => e
-        CF::Data.from_string self
+      unless defined? @cf_is_binary
+        begin
+          ::Iconv.conv('UTF-8', 'UTF-8', self)
+          return false if self.frozen?
+          @cf_is_binary = false
+        rescue Iconv::IllegalSequence => e
+          return true if self.frozen?
+          @cf_is_binary = true
+        end
       end
+      @cf_is_binary
     end
   end
 
+  def binary! bin=true
+    if defined? encoding
+      if bin != true and encoding == Encoding::ASCII_8BIT
+        # default to utf-8
+        self.force_encoding( (bin == false) ? "UTF-8" : bin)
+      else
+        self.force_encoding Encoding::ASCII_8BIT
+      end
+    else
+      @cf_is_binary = !! bin
+    end
+    self
+  end
+  
   def to_cf_string
     CF::String.from_string self
   end
