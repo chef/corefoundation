@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe 'extensions' do
@@ -14,14 +15,56 @@ describe 'extensions' do
   end
 
   context 'with a 8bit string' do
-    it 'should return a cf data' do
-      '123'.encode(Encoding::ASCII_8BIT).to_cf.should be_a(CF::Data)
+    it 'should be binary' do
+      '123'.binary!.binary?.should be_true
+      if CF::String::HAS_ENCODING
+        '123'.encode(Encoding::ASCII_8BIT).binary?.should be_true
+      else
+        "\xff\xff\xff".binary?.should be_true
+      end
+      [0xff, 0xff, 0xff].pack("C*").binary?.should be_true
     end
+
+    it 'should return a cf data' do
+      if CF::String::HAS_ENCODING
+        '123'.encode(Encoding::ASCII_8BIT).to_cf.should be_a(CF::Data)
+      end
+      '123'.binary!.to_cf.should be_a(CF::Data)
+      [0xff, 0xff, 0xff].pack("C*").to_cf.should be_a(CF::Data)
+    end
+
+    it 'should return nil on garbage binary data flagged as text' do
+      [0xff, 0xff, 0xff].pack("C*").binary!(false).to_cf.should be_nil
+    end
+
+    # the word "über" in utf-8
+    uber = [195, 188, 98, 101, 114]
+    it 'should convert utf-8 to cf string' do
+      uber.pack("C*").binary!(false).to_cf.should be_a(CF::String)
+      if CF::String::HAS_ENCODING
+        uber.pack("C*").force_encoding("UTF-8").to_cf.should be_a(CF::String)
+      end
+    end
+    it 'should convert utf-8 flagged as binary to cf data' do
+      uber.pack("C*").binary!.to_cf.should be_a(CF::Data)
+    end
+
   end
 
   context 'with an asciistring' do
+    it 'should be non-binary' do
+      '123'.binary?.should be_false
+    end
+    it 'can round-trip' do
+      '123'.binary!(true).binary!(false).binary?.should be_false
+    end
     it 'should return a cf string' do
       '123'.to_cf.should be_a(CF::String)
+      '123'.to_cf_string.should be_a(CF::String)
+    end
+    it 'should return cf data if asked nicely' do
+      '123'.to_cf_data.should be_a(CF::Data)
+      '123'.binary!.to_cf.should be_a(CF::Data)
     end
   end
 

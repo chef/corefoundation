@@ -7,7 +7,9 @@ describe CF::Data do
     it 'should return a binary ruby string' do
       ruby_string = subject.to_s
       ruby_string.should == 'A CF string'
-      ruby_string.encoding.should == Encoding::ASCII_8BIT
+      if CF::String::HAS_ENCODING
+        ruby_string.encoding.should == Encoding::ASCII_8BIT
+      end
     end
   end
 
@@ -20,7 +22,9 @@ describe CF::Data do
   describe 'to_ruby' do
     it 'should behave like to_s' do
       subject.to_ruby.should == 'A CF string'
-      subject.to_ruby.encoding.should == Encoding::ASCII_8BIT
+      if 'A CF string'.respond_to? "encoding"
+        subject.to_ruby.encoding.should == Encoding::ASCII_8BIT
+      end
     end
   end
 end

@@ -20,14 +20,24 @@ module CF
     # The cfstring encoding for UTF8
     UTF8 = 0x08000100 #From cfstring.h
 
+    # workaround for ruby 1.8.7 compat
+    HAS_ENCODING = "foo".respond_to? "encode"
 
     # Creates a string from a ruby string
     # The string must be convertable to UTF-8
     #
     # @param [String] s 
     # @return [CF::String]
-    def self.from_string(s)
-      s_utf = s.encode('UTF-8')
+    def self.from_string(s, src_encoding='UTF-8')
+      if HAS_ENCODING
+        s_utf = s.encode('UTF-8')
+      else
+        begin
+          s_utf = Iconv.conv('UTF-8', src_encoding, s.to_s)
+        rescue Iconv::IllegalSequence => e
+          return nil
+        end
+      end
       raw = CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)
       raw.null? ? nil : new(raw).release_on_gc
     end
@@ -67,7 +77,11 @@ module CF
         bytes_used_buffer.read_long
       end
 
-      buffer.read_string(bytes_used).force_encoding(Encoding::UTF_8)
+      if HAS_ENCODING
+        buffer.read_string(bytes_used).force_encoding(Encoding::UTF_8)
+      else
+        buffer.read_string(bytes_used)
+      end
     end
 
     alias_method :to_ruby, :to_s

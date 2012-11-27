@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/fcheung/corefoundation}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.8.10}
-  s.summary = %q{Ruby wrapper for  OS X's corefoundation}  
-  s.required_ruby_version = '>= 1.9.2'
+  s.summary = %q{Ruby wrapper for OS X corefoundation}  
+  s.required_ruby_version = '>= 1.8.7'
 
   s.add_runtime_dependency "ffi"
   s.add_development_dependency "rspec", "~>2.10"
