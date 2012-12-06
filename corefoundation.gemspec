@@ -8,12 +8,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Frederick Cheung"]
-  s.date = %q{2012-10-16}
+  s.date = %q{2012-12-06}
   s.description = %q{FFI based Ruby wrappers for Core Foundation }
   s.email = %q{frederick.cheung@gmail.com}
   s.files += Dir["lib/**/*.rb"]
   s.files += Dir["spec/**/*"]
-  s.files += ['README.md', 'LICENSE']
+  s.files += ['README.md', 'LICENSE', 'CHANGELOG']
   s.license = 'MIT'
   s.homepage = %q{http://github.com/fcheung/corefoundation}
   s.require_paths = ["lib"]

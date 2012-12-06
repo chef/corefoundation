@@ -31,7 +31,8 @@ If you use the raw api (eg `CF.CFArrayCreate`) then you're on your own.
 
 Compatibility
 =============
-Requires ruby 1.9 due to use of encoding related methods. Should work in MRI and jruby. Not compatible with rubinius due to rubinius' ffi implemenation not supporting certain features.
+
+Should work in MRI 1.8.7 and above and jruby. Not compatible with rubinius due to rubinius' ffi implementation not supporting certain features. On 1.8.7 the `binary?` and `binary!` methods tag a string's binary-ness with a flag, on 1.9 these methods are just shortcuts for testing whether the encoding is Encoding::ASCII_8BIT
 
 License
 =======
