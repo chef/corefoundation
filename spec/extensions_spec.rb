@@ -14,58 +14,79 @@ describe 'extensions' do
     end
   end
 
-  context 'with a 8bit string' do
-    it 'should be binary' do
-      '123'.binary!.binary?.should be_true
-      if CF::String::HAS_ENCODING
-        '123'.encode(Encoding::ASCII_8BIT).binary?.should be_true
-      else
-        "\xff\xff\xff".binary?.should be_true
-      end
-      [0xff, 0xff, 0xff].pack("C*").binary?.should be_true
-    end
-
-    it 'should return a cf data' do
-      if CF::String::HAS_ENCODING
-        '123'.encode(Encoding::ASCII_8BIT).to_cf.should be_a(CF::Data)
-      end
-      '123'.binary!.to_cf.should be_a(CF::Data)
-      [0xff, 0xff, 0xff].pack("C*").to_cf.should be_a(CF::Data)
-    end
-
-    it 'should return nil on garbage binary data flagged as text' do
-      [0xff, 0xff, 0xff].pack("C*").binary!(false).to_cf.should be_nil
-    end
-
-    # the word "über" in utf-8
+  describe String do
     uber = [195, 188, 98, 101, 114]
-    it 'should convert utf-8 to cf string' do
-      uber.pack("C*").binary!(false).to_cf.should be_a(CF::String)
-      if CF::String::HAS_ENCODING
-        uber.pack("C*").force_encoding("UTF-8").to_cf.should be_a(CF::String)
+    
+    describe 'to_cf' do
+
+      unless defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
+        context 'with data incorrectly marked as non binary' do
+          it 'returns nil' do
+            [0xff, 0xff, 0xff].pack("C*").binary!(false).to_cf.should be_nil
+          end
+        end
+      end
+
+      context 'with a non binary string' do
+        it 'should return a cf string' do
+          '123'.to_cf.should be_a(CF::String)
+        end
+      end
+
+      context 'with a string marked as binary' do
+        it 'should return a cf data' do
+          '123'.binary!.to_cf.should be_a(CF::Data)
+        end
+      end
+
+      context 'with a binary string' do    
+        it 'should return a cf data' do
+          [0xff, 0xff, 0xff].pack("C*").to_cf.should be_a(CF::Data)
+        end
+      end
+
+      context 'with a utf-8 string' do
+        it 'should return a cfstring' do
+          uber.pack("C*").should_not be_a(CF::String)
+        end
       end
     end
-    it 'should convert utf-8 flagged as binary to cf data' do
-      uber.pack("C*").binary!.to_cf.should be_a(CF::Data)
+
+    describe 'binary?' do
+
+      it 'should return false on a plain ascii string' do
+        '123'.should_not be_binary
+      end
+
+      if CF::String::HAS_ENCODING
+        it 'should return false on valid utf data' do
+          "\xc3\xc9".should_not be_binary
+        end
+      else
+        it 'should return false on valid utf data' do
+          uber.pack("C*").should_not be_binary
+        end
+      end
+
+      it 'should return false on string forced to non binary' do
+        "\xc3\xc9".binary!(false).should_not be_binary
+      end
+
+      it 'should return true if binary! has been called' do
+        '123'.binary!.should be_binary
+      end
+
+      if CF::String::HAS_ENCODING
+        it 'should return true for ascii 8bit strings' do
+          '123'.encode(Encoding::ASCII_8BIT).should be_binary
+        end
+      else
+        it 'should return true for data that cannot be converted to utf8' do
+          "\xff\xff\xff".should be_binary
+        end
+      end
     end
 
-  end
-
-  context 'with an asciistring' do
-    it 'should be non-binary' do
-      '123'.binary?.should be_false
-    end
-    it 'can round-trip' do
-      '123'.binary!(true).binary!(false).binary?.should be_false
-    end
-    it 'should return a cf string' do
-      '123'.to_cf.should be_a(CF::String)
-      '123'.to_cf_string.should be_a(CF::String)
-    end
-    it 'should return cf data if asked nicely' do
-      '123'.to_cf_data.should be_a(CF::Data)
-      '123'.binary!.to_cf.should be_a(CF::Data)
-    end
   end
 
   context 'with true' do
