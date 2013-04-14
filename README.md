@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/fcheung/corefoundation.png)](https://travis-ci.org/fcheung/corefoundation)
 
 CoreFoundation
 ==============
