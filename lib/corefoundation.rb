@@ -11,3 +11,6 @@ require 'corefoundation/dictionary'
 require 'corefoundation/number'
 require 'corefoundation/date'
 require 'corefoundation/extensions'
+
+# Utilities
+require 'corefoundation/preferences'
