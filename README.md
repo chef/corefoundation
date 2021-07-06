@@ -1,3 +1,19 @@
+CoreFoundation
+==============
+
+FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available.
+
+Although the CF collection classes can store arbitrary pointer sized values this wrapper only supports storing CFTypes.
+
+The CF namespace has the raw FFI generated method calls but it's usually easier to use the wrapper classes: `CF::String`, `CF::Date`, `CF::Array`, `CF::Dictionary`, `CF::Boolean` which try to present a rubyish view of the world (for example `CF::Array` implements `Enumerable`)
+
+These implement methods for creating new instances from ruby objects (eg `CF::String.from_string("hello world")`) but you can also pass build them from an `FFI::Pointer`).
+
+Preferences interface
+==============
+
+Preferences interface wraps CoreFoundation's [preference utilities](https://developer.apple.com/documentation/corefoundation/preferences_utilities) and provide functionality for managing preferences across domains.
+
 Setup
 =============
 1. Add `gem 'corefoundation', git: "https://github.com/chef/corefoundation.git"` to your gemfile
@@ -19,17 +35,6 @@ CF::Preferences.get(key, domain, CF::Preferences::CURRENT_USER, CF::Preferences:
 CF::Preferences.set(key, value, domain, 'example_username', 'example.host')
 CF::Preferences.set(key, value, domain, CF::Preferences::ALL_USERS, CF::Preferences::ALL_HOSTS)
 ```
-
-CoreFoundation
-==============
-
-FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other OS X libraries.
-
-Although the CF collection classes can store arbitrary pointer sized values this wrapper only supports storing CFTypes.
-
-The CF namespace has the raw FFI generated method calls but it's usually easier to use the wrapper classes: `CF::String`, `CF::Date`, `CF::Array`, `CF::Dictionary`, `CF::Boolean` which try to present a rubyish view of the world (for example `CF::Array` implements `Enumerable`)
-
-These implement methods for creating new instances from ruby objects (eg `CF::String.from_string("hello world")`) but you can also pass build them from an `FFI::Pointer`).
 
 Converting
 ===========
