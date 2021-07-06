@@ -1,4 +1,24 @@
-[![Build Status](https://travis-ci.org/fcheung/corefoundation.png)](https://travis-ci.org/fcheung/corefoundation)
+Setup
+=============
+1. Add `gem 'corefoundation', git: "https://github.com/chef/corefoundation.git"` to your gemfile
+2. `bundle install`
+
+Usage
+=============
+```ruby
+domain = "NSGlobalDomain"
+key = "com.apple.securitypref.logoutvalue"
+value = 3150
+
+# Getting preferences
+CF::Preferences.get(key, domain)
+CF::Preferences.get(key, domain, 'example_username', 'example.host')
+CF::Preferences.get(key, domain, CF::Preferences::CURRENT_USER, CF::Preferences::CURRENT_HOST)
+
+# Setting preferences
+CF::Preferences.set(key, value, domain, 'example_username', 'example.host')
+CF::Preferences.set(key, value, domain, CF::Preferences::ALL_USERS, CF::Preferences::ALL_HOSTS)
+```
 
 CoreFoundation
 ==============
