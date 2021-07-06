@@ -1,6 +1,7 @@
-# CoreFoundation
+CoreFoundation
+==============
 
-FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other macOS libraries.
+FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available.
 
 Although the CF collection classes can store arbitrary pointer sized values this wrapper only supports storing CFTypes.
 
@@ -8,7 +9,35 @@ The CF namespace has the raw FFI generated method calls but it's usually easier 
 
 These implement methods for creating new instances from ruby objects (eg `CF::String.from_string("hello world")`) but you can also pass build them from an `FFI::Pointer`).
 
-## Converting
+Preferences interface
+==============
+
+Preferences interface wraps CoreFoundation's [preference utilities](https://developer.apple.com/documentation/corefoundation/preferences_utilities) and provide functionality for managing preferences across domains.
+
+Setup
+=============
+1. Add `gem 'corefoundation', git: "https://github.com/chef/corefoundation.git"` to your gemfile
+2. `bundle install`
+
+Usage
+=============
+```ruby
+domain = "NSGlobalDomain"
+key = "com.apple.securitypref.logoutvalue"
+value = 3150
+
+# Getting preferences
+CF::Preferences.get(key, domain)
+CF::Preferences.get(key, domain, 'example_username', 'example.host')
+CF::Preferences.get(key, domain, CF::Preferences::CURRENT_USER, CF::Preferences::CURRENT_HOST)
+
+# Setting preferences
+CF::Preferences.set(key, value, domain, 'example_username', 'example.host')
+CF::Preferences.set(key, value, domain, CF::Preferences::ALL_USERS, CF::Preferences::ALL_HOSTS)
+```
+
+Converting
+===========
 
 `CF::Base` objects has a `to_ruby` that creates a ruby object of the most approprite type (`String` for `CF::String`, `Time` for `CF::Date`, `Integer` or `Float` for `CF::Number` etc). The collection classes call `to_ruby` on their contents too.
 
