@@ -39,7 +39,7 @@ module CF
     def self.from_f(float)
       p = FFI::MemoryPointer.new(:double)
       p.write_double(float.to_f)
-      new(CF.CFNumberCreate(nil, :kCFNumberDoubleType, p)).release_on_gc
+      new(CF.CFNumberCreate(nil, :kCFNumberDoubleType, p))
     end
 
     # Constructs a CF::Number from an integer
@@ -48,7 +48,7 @@ module CF
     def self.from_i(int)
       p = FFI::MemoryPointer.new(:int64)
       p.put_int64(0,int.to_i)
-      new(CF.CFNumberCreate(nil, :kCFNumberSInt64Type, p)).release_on_gc
+      new(CF.CFNumberCreate(nil, :kCFNumberSInt64Type, p))
     end
 
     # Compares the receiver with the argument
