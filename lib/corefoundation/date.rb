@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module CF
   typedef :pointer, :cfdateref
   typedef :double, :cfabsolutetime
 
-  attach_function :CFDateCreate, [:pointer, :cfabsolutetime], :cfdateref
+  attach_function :CFDateCreate, %i[pointer cfabsolutetime], :cfdateref
   attach_function :CFDateGetAbsoluteTime, [:cfdateref], :cfabsolutetime
   attach_variable :kCFAbsoluteTimeIntervalSince1970, :double
 
@@ -27,6 +29,6 @@ module CF
       Time.at(CF.CFDateGetAbsoluteTime(self) + CF.kCFAbsoluteTimeIntervalSince1970)
     end
 
-    alias_method :to_ruby, :to_time
+    alias to_ruby to_time
   end
 end

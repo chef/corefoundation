@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe CF::String do
-
   describe 'from_string' do
     it 'should return a CF::String' do
       CF::String.from_string('A CF string').should be_a(CF::String)
@@ -9,7 +10,7 @@ describe CF::String do
 
     # The intent is to force feed CF::String with an invalid utf-8 string
     # but jruby doesn't seem to allow this to be constructed
-    unless defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
+    unless defined? RUBY_ENGINE && (RUBY_ENGINE == 'jruby')
       context 'with invalid data' do
         it 'returns nil' do
           if CF::String::HAS_ENCODING
@@ -26,23 +27,18 @@ describe CF::String do
     it 'should return a utf ruby string' do
       ruby_string = CF::String.from_string('A CF string').to_s
       ruby_string.should == 'A CF string'
-      if CF::String::HAS_ENCODING
-        ruby_string.encoding.should == Encoding::UTF_8
-      else
-      end
+      ruby_string.encoding.should == Encoding::UTF_8 if CF::String::HAS_ENCODING
     end
   end
 
   describe 'to_ruby' do
     it 'should behave like to_s' do
       CF::String.from_string('A CF string').to_ruby.should == 'A CF string'
-      if CF::String::HAS_ENCODING
-        CF::String.from_string('A CF string').to_ruby.encoding.should == Encoding::UTF_8
-      end
+      CF::String.from_string('A CF string').to_ruby.encoding.should == Encoding::UTF_8 if CF::String::HAS_ENCODING
     end
   end
 
   it 'should be comparable' do
-    CF::String.from_string('aaa').should  <= CF::String.from_string('zzz')
+    CF::String.from_string('aaa').should <= CF::String.from_string('zzz')
   end
 end

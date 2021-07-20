@@ -1,9 +1,11 @@
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'corefoundation/version'
 
 Gem::Specification.new do |s|
-  s.name = %q{corefoundation}
+  s.name = 'corefoundation'
   s.version = CF::VERSION
 
   s.authors = ["Frederick Cheung", "Chef Software, Inc."]
@@ -19,8 +21,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.6'
 
-  s.add_runtime_dependency "ffi"
-  s.add_development_dependency "rspec", "~>2.10"
-  s.add_development_dependency "rake"
-  s.add_development_dependency "yard"
+  s.add_runtime_dependency 'ffi'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'yard'
 end

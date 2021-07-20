@@ -65,8 +65,8 @@ module CF
 
       # @!method binary?
       #
-      # used to determine whether {#to_cf} should return a {CF::String} or a {CF::Data}. On ruby 1.9 and above this simply
-      # checks whether the encoding is ascii-8bit or not.
+      # used to determine whether {#to_cf} should return a {CF::String} or a {CF::Data}. On ruby 1.9 and above this
+      # simply checks whether the encoding is ascii-8bit or not.
       #
       # On ruby 1.8.7
       #
@@ -85,10 +85,12 @@ module CF
           unless defined? @cf_is_binary
             begin
               ::Iconv.conv('UTF-8', 'UTF-8', self)
-              return false if self.frozen?
+              return false if frozen?
+
               @cf_is_binary = false
             rescue Iconv::IllegalSequence
-              return true if self.frozen?
+              return true if frozen?
+
               @cf_is_binary = true
             end
           end
@@ -100,9 +102,11 @@ module CF
         # On ruby 1.8.7 sets or clears the flag used by {#binary?}. On ruby 1.9 the string's encoding is forced.
         # @see #binary?
         #
-        # NOTE: There is no advantage to using this over the standard encoding methods unless you wish to retain 1.8.7 compatibility
+        # NOTE: There is no advantage to using this over the standard encoding methods unless you wish to
+        #   retain 1.8.7 compatibility
         #
-        # @param [optional, Boolean, Encoding] bin On ruby 1.8.7 only boolean values are admissible. On ruby 1.9 you can pass a specific encoding to force.
+        # @param [optional, Boolean, Encoding] bin On ruby 1.8.7 only boolean values are admissible.
+        #   On ruby 1.9 you can pass a specific encoding to force.
         #   If you pass `true` then `Encoding::ASCII_BIT` is used, if you pass `false` then `Encoding::UTF_8`
         def binary!(bin: true)
           if bin == true
@@ -114,12 +118,14 @@ module CF
           self
         end
       else
-        # On ruby 1.8.7 sets or clears the flag used by {#binary?}. On ruby 1.9 the string's encoding is forced. 
+        # On ruby 1.8.7 sets or clears the flag used by {#binary?}. On ruby 1.9 the string's encoding is forced.
         # @see #binary?
         #
-        # NOTE: There is no advantage to using this over the standard encoding methods unless you wish to retain 1.8.7 compatibility
+        # NOTE: There is no advantage to using this over the standard encoding methods unless you wish to
+        #   retain 1.8.7 compatibility
         #
-        # @param [optional, Boolean, Encoding] bin On ruby 1.8.7 only boolean values are admissible. On ruby 1.9 you can pass a specific encoding to force.
+        # @param [optional, Boolean, Encoding] bin On ruby 1.8.7 only boolean values are admissible.
+        #   On ruby 1.9 you can pass a specific encoding to force.
         #   If you pass `true` then `Encoding::ASCII_BIT` is used, if you pass `false` then `Encoding::UTF_8`
         #
         def binary!(bin: true)

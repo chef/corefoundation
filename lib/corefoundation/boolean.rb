@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CF
   attach_variable 'kCFBooleanTrue', :pointer
   attach_variable 'kCFBooleanFalse', :pointer
@@ -7,7 +9,7 @@ module CF
   # Typically you use the CF::Boolean::TRUE and CF::Boolean::FALSE constants
   #
   class Boolean < Base
-    register_type("CFBoolean")
+    register_type('CFBoolean')
     # A constant containing kCFBooleanTrue
     TRUE = new(CF.kCFBooleanTrue)
     # A constant containing kCFBooleanFalse
@@ -20,6 +22,6 @@ module CF
       CF.CFBooleanGetValue(self) != 0
     end
 
-    alias_method :to_ruby, :value
+    alias to_ruby value
   end
 end

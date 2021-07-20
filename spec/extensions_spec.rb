@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'extensions' do
@@ -10,19 +11,18 @@ describe 'extensions' do
 
   context 'with a float' do
     it 'should return a cfnumber' do
-      (1.0).to_cf.should be_a(CF::Number)
+      1.0.to_cf.should be_a(CF::Number)
     end
   end
 
   describe String do
     uber = [195, 188, 98, 101, 114]
-    
-    describe 'to_cf' do
 
-      unless defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
+    describe 'to_cf' do
+      unless defined? RUBY_ENGINE && (RUBY_ENGINE == 'jruby')
         context 'with data incorrectly marked as non binary' do
           it 'returns nil' do
-            [0xff, 0xff, 0xff].pack("C*").binary!(false).to_cf.should be_nil
+            [0xff, 0xff, 0xff].pack('C*').binary!(false).to_cf.should be_nil
           end
         end
       end
@@ -39,21 +39,20 @@ describe 'extensions' do
         end
       end
 
-      context 'with a binary string' do    
+      context 'with a binary string' do
         it 'should return a cf data' do
-          [0xff, 0xff, 0xff].pack("C*").to_cf.should be_a(CF::Data)
+          [0xff, 0xff, 0xff].pack('C*').to_cf.should be_a(CF::Data)
         end
       end
 
       context 'with a utf-8 string' do
         it 'should return a cfstring' do
-          uber.pack("C*").should_not be_a(CF::String)
+          uber.pack('C*').should_not be_a(CF::String)
         end
       end
     end
 
     describe 'binary?' do
-
       it 'should return false on a plain ascii string' do
         '123'.should_not be_binary
       end
@@ -64,7 +63,7 @@ describe 'extensions' do
         end
       else
         it 'should return false on valid utf data' do
-          uber.pack("C*").should_not be_binary
+          uber.pack('C*').should_not be_binary
         end
       end
 
@@ -86,7 +85,6 @@ describe 'extensions' do
         end
       end
     end
-
   end
 
   context 'with true' do
@@ -119,7 +117,7 @@ describe 'extensions' do
 
   context 'with a dictionary' do
     it 'should return a cfdictionary containing cf objects' do
-      cf_hash = {'key_1' => true, 'key_2' => false}.to_cf
+      cf_hash = { 'key_1' => true, 'key_2' => false }.to_cf
       cf_hash['key_1'].should == CF::Boolean::TRUE
       cf_hash['key_2'].should == CF::Boolean::FALSE
     end

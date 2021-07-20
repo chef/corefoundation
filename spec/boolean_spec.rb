@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe CF do
-
-
   describe CF::Boolean do
     describe 'value' do
       it 'should return true for CF::Boolean::TRUE' do
@@ -18,7 +18,5 @@ describe CF do
         CF::Boolean::FALSE.to_ruby.should == false
       end
     end
-
   end
-
 end

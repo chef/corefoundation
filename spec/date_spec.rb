@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe CF::Date do
@@ -22,4 +24,3 @@ describe CF::Date do
     end
   end
 end
-

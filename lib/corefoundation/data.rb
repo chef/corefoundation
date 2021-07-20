@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 module CF
   typedef :pointer, :cfdataref
 
-  attach_function 'CFDataCreate', [:pointer, :buffer_in, :cfindex], :cfdataref  
-  attach_function 'CFDataGetLength', [:cfdataref], :cfindex  
+  attach_function 'CFDataCreate', %i[pointer buffer_in cfindex], :cfdataref
+  attach_function 'CFDataGetLength', [:cfdataref], :cfindex
   attach_function 'CFDataGetBytePtr', [:cfdataref], :pointer
 
   # Wrapper for CFData
   #
   #
   class Data < Base
-    register_type("CFData")
+    register_type('CFData')
 
     # Creates a CFData from a ruby string
-    # @param [String] s the string to use
+    # @param [String] str the string to use
     # @return [CF::Data]
-    def self.from_string(s)
-      new(CF.CFDataCreate(nil, s, s.bytesize))
+    def self.from_string(str)
+      new(CF.CFDataCreate(nil, str, str.bytesize))
     end
 
     # Creates a ruby string from the wrapped data. The encoding will always be ASCII_8BIT
@@ -36,7 +38,6 @@ module CF
       CF.CFDataGetLength(self)
     end
 
-    alias_method :to_ruby, :to_s
+    alias to_ruby to_s
   end
 end
-
