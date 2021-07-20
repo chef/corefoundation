@@ -1,7 +1,10 @@
-require 'ffi'
-require 'iconv' if RUBY_VERSION < "1.9"
+# frozen_string_literal: true
 
-# CF Types
+require 'ffi'
+require 'iconv' if RUBY_VERSION < '1.9'
+
+require 'corefoundation/memory'
+require 'corefoundation/register'
 require 'corefoundation/base'
 require 'corefoundation/null'
 require 'corefoundation/string'
@@ -11,10 +14,17 @@ require 'corefoundation/data'
 require 'corefoundation/dictionary'
 require 'corefoundation/number'
 require 'corefoundation/date'
-require 'corefoundation/extensions'
 
-# Error wrapper
 require 'corefoundation/error'
-
-# Utilities
+require 'corefoundation/extensions'
 require 'corefoundation/preferences'
+
+# REVIEW: Include patches from module
+Integer.include CF::CoreExtensions::Integer
+Float.include CF::CoreExtensions::Float
+Array.include CF::CoreExtensions::Array
+TrueClass.include CF::CoreExtensions::TrueClass
+FalseClass.include CF::CoreExtensions::FalseClass
+String.include CF::CoreExtensions::String
+Time.include CF::CoreExtensions::Time
+Hash.include CF::CoreExtensions::Hash
