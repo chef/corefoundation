@@ -39,7 +39,7 @@ module CF
         end
       end
       raw = CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)
-      raw.null? ? nil : new(raw).release_on_gc
+      raw.null? ? nil : new(raw)
     end
 
     # Returns the length, in unicode characters of the string

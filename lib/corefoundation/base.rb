@@ -6,9 +6,7 @@ module CF
   class Base
     include CF::BaseWrapper
     abstract_methods :to_ruby
-    # Allow setting the wrapper pointer. You should only do this rarely. If you have used release_on_gc then that
-    # finalizer will still be called on the original pointer value
-    attr_accessor :ptr
+    attr_reader :ptr
 
     # Raises an exception if the argument does not inherit from CF::Base
     #
@@ -30,6 +28,12 @@ module CF
     # @param [FFI::Pointer] pointer The pointer to wrap
     def initialize(pointer)
       @ptr = FFI::Pointer.new(pointer)
+      ObjectSpace.define_finalizer(self, self.class.finalize(ptr))
+    end
+
+    # @param [FFI::Pointer] pointer to the address of the object
+    def self.finalize(pointer)
+      proc { CF.release(pointer) unless pointer.address.zero }
     end
 
     # Whether the instance is the CFNull singleton
