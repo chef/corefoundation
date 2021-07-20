@@ -1,0 +1,6 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  TargetRubyVersion: '2.7.2'

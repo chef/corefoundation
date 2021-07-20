@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'bundler/setup'
 
-$: << File.dirname(__FILE__) + '/../lib'
+$LOAD_PATH << "#{File.dirname(__FILE__)}/../lib"
 
 require 'corefoundation'
 
 RSpec.configure do |config|
-  
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CF
   # @private
   class DictionaryKeyCallbacks < FFI::Struct
@@ -8,6 +10,7 @@ module CF
            :equal, :pointer,
            :hash, :pointer
   end
+
   # @private
   class DictionaryValueCallbacks < FFI::Struct
     layout :version, :cfindex,
@@ -18,27 +21,27 @@ module CF
   end
 
   typedef :pointer, :cfdictionaryref
-  attach_variable :kCFTypeDictionaryKeyCallBacks,  DictionaryKeyCallbacks
-  attach_variable :kCFTypeDictionaryValueCallBacks,  DictionaryValueCallbacks
-  attach_function :CFDictionaryCreateMutable, [:pointer, :cfindex, :pointer, :pointer], :cfdictionaryref
+  attach_variable :kCFTypeDictionaryKeyCallBacks, DictionaryKeyCallbacks
+  attach_variable :kCFTypeDictionaryValueCallBacks, DictionaryValueCallbacks
+  attach_function :CFDictionaryCreateMutable, %i[pointer cfindex pointer pointer], :cfdictionaryref
 
-  attach_function :CFDictionarySetValue, [:cfdictionaryref, :pointer, :pointer], :void
-  attach_function :CFDictionaryGetValue, [:cfdictionaryref, :pointer], :pointer
+  attach_function :CFDictionarySetValue, %i[cfdictionaryref pointer pointer], :void
+  attach_function :CFDictionaryGetValue, %i[cfdictionaryref pointer], :pointer
 
-  attach_function :CFDictionaryGetValue, [:cfdictionaryref, :pointer], :pointer
+  attach_function :CFDictionaryGetValue, %i[cfdictionaryref pointer], :pointer
   attach_function :CFDictionaryGetCount, [:cfdictionaryref], :cfindex
 
-  callback :each_applier, [:pointer, :pointer, :pointer], :void
+  callback :each_applier, %i[pointer pointer pointer], :void
 
-  attach_function :CFDictionaryApplyFunction, [:cfdictionaryref, :each_applier, :pointer], :void
+  attach_function :CFDictionaryApplyFunction, %i[cfdictionaryref each_applier pointer], :void
 
   # Wrapper class for CFDictionary. It implements Enumerable.
   #
-  # Values returned by the accessor methods or yielded by the block are retained and marked as releasable on garbage collection
-  # This means you can safely use the returned values even if the CFDictionary itself has been destroyed
+  # Values returned by the accessor methods or yielded by the block are retained and marked as releasable on garbage
+  # collection. This means you can safely use the returned values even if the CFDictionary itself has been destroyed
   #
   class Dictionary < Base
-    register_type("CFDictionary")
+    register_type('CFDictionary')
     include Enumerable
 
     # Return a new, empty mutable CF::Dictionary
@@ -46,13 +49,15 @@ module CF
     #
     # @return [CF::Dictionary]
     def self.mutable
-      new(CF.CFDictionaryCreateMutable nil, 0, CF.kCFTypeDictionaryKeyCallBacks.to_ptr, CF.kCFTypeDictionaryValueCallBacks.to_ptr)
+      new(CF.CFDictionaryCreateMutable(nil, 0, CF.kCFTypeDictionaryKeyCallBacks.to_ptr,
+                                       CF.kCFTypeDictionaryValueCallBacks.to_ptr))
     end
 
     # Iterates over the array yielding the value to the block
-    # The value is wrapped in the appropriate CF::Base subclass and retained (but marked for releasing upon garbage collection)
+    # The value is wrapped in the appropriate CF::Base subclass and retained (but marked for releasing upon garbage
+    # collection.
+    #
     # @return self
-
     def each
       callback = lambda do |key, value, _|
         yield [Base.typecast(key).retain, Base.typecast(value).retain]
@@ -91,7 +96,7 @@ module CF
     # @param [CF::Dictionary] other
     # @return self
     def merge!(other)
-      other.each do |k,v|
+      other.each do |k, v|
         self[k] = v
       end
       self
@@ -107,8 +112,8 @@ module CF
     #
     # @return [Hash]
     def to_ruby
-      Hash[collect {|k,v| [k.to_ruby, v.to_ruby]}]
+      collect { |k, v| [k.to_ruby, v.to_ruby] }.to_h
     end
-    alias_method :size, :length
+    alias size length
   end
 end
