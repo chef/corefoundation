@@ -73,22 +73,6 @@ module CF
       end
     end
 
-    # Private releaser class providers the block to execute after garbage collection.
-    # REVIEW: If we remove setter for `@ptr`, then we can probably remove the need for this class
-    #   and directly define a proc in the release_on_gc method.
-    class Releaser
-      def initialize(ptr)
-        @address = ptr.address
-      end
-
-      def call(*)
-        return unless @address != 0
-
-        CF.release(@address)
-        @address = 0
-      end
-    end
-
     # Returns a ruby string containing the output of CFCopyDescription for the wrapped object
     #
     # @return [String]
@@ -102,15 +86,6 @@ module CF
     # @return Returns self
     def release
       CF.release(self)
-      self
-    end
-
-    # Installs a finalizer on the wrapper object that will cause it to call CFRelease on the pointer
-    # when the wrapper is garbage collected
-    #
-    # @return Returns self
-    def release_on_gc
-      ObjectSpace.define_finalizer(ptr, Releaser.new(ptr))
       self
     end
 
@@ -135,7 +110,5 @@ module CF
     def to_ptr
       ptr
     end
-
-    private_constant :Releaser
   end
 end
