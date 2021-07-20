@@ -24,7 +24,7 @@ module CF
   attach_function :show, 'CFShow', [:cftyperef], :void
   attach_function :release, 'CFRelease', [:cftyperef], :void
   attach_function :retain, 'CFRetain', [:cftyperef], :cftyperef
-  attach_function 'CFEqual', [:cftyperef, :cftyperef], :char
+  attach_function 'CFEqual', %i[cftyperef cftyperef], :char
   attach_function 'CFHash', [:cftyperef], :cfhashcode
   attach_function 'CFCopyDescription', [:cftyperef], :cftyperef
   attach_function 'CFGetTypeID', [:cftyperef], :cftypeid
