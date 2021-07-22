@@ -96,7 +96,6 @@ module CF
 
       self.class.check_cftype(value)
       CF.CFArraySetValueAtIndex(self, index, value)
-      value
     end
 
     # Appends a value to the array
