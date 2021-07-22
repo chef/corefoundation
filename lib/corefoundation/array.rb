@@ -92,7 +92,6 @@ module CF
       raise TypeError, "instance is not mutable" unless mutable?
       self.class.check_cftype(value)
       CF.CFArraySetValueAtIndex(self, index, value)
-      value
     end
 
     # Appends a value to the array
