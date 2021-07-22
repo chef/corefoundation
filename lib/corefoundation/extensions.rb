@@ -108,7 +108,7 @@ module CF
         # @param [optional, Boolean, Encoding] bin On ruby 1.8.7 only boolean values are admissible.
         #   On ruby 1.9 you can pass a specific encoding to force.
         #   If you pass `true` then `Encoding::ASCII_BIT` is used, if you pass `false` then `Encoding::UTF_8`
-        def binary!(bin: true)
+        def binary!(bin = true)
           if bin == true
             force_encoding Encoding::ASCII_8BIT
           else
@@ -128,7 +128,7 @@ module CF
         #   On ruby 1.9 you can pass a specific encoding to force.
         #   If you pass `true` then `Encoding::ASCII_BIT` is used, if you pass `false` then `Encoding::UTF_8`
         #
-        def binary!(bin: true)
+        def binary!(bin = true)
           @cf_is_binary = bin
           self
         end

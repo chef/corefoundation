@@ -20,7 +20,7 @@ describe CF::Number do
   end
 
   it 'should be comparable' do
-    (CF::Number.from_f('3.1415') <= CF::Number.from_i(4)).should be_true
+    (CF::Number.from_f('3.1415') <= CF::Number.from_i(4)).should be true
   end
 
   describe('from_f') do
