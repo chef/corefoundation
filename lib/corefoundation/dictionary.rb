@@ -83,7 +83,6 @@ module CF
       self.class.check_cftype(key)
       self.class.check_cftype(value)
       CF.CFDictionarySetValue(self, key, value)
-      value
     end
 
     # Adds the key value pairs from the argument to self
