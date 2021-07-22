@@ -60,9 +60,8 @@ module CF
     # @param [Array<CF::Base>] array The objects to place in the array. They must inherit from CF::Base
     # @return [CF::Array] A CF::Array containing the objects, setup to release the array upon garbage collection
     def self.immutable(array)
-      if bad_element == array.detect { |value| !value.is_a?(CF::Base) }
-        raise TypeError, "Array contains non cftype #{bad_element.inspect}"
-      end
+      bad_element = array.detect { |value| !value.is_a?(CF::Base) }
+      raise TypeError, "Array contains a non cftype element: #{bad_element.inspect}" unless bad_element.nil?
 
       m = FFI::MemoryPointer.new(:pointer, array.length)
       m.write_array_of_pointer(array)
