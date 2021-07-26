@@ -1,0 +1,13 @@
+expeditor:
+  defaults:
+    buildkite:
+      timeout_in_minutes: 30
+
+steps:
+  - label: 'Run specs on macos'
+    commands:
+      - .expeditor/run_tests.sh "rake"
+    expeditor:
+      executor:
+        macos:
+          os-version: "10.15"

@@ -1,0 +1,45 @@
+# Documentation available at https://expeditor.chef.io/docs/getting-started/
+---
+# The name we use for this project when interacting with Expeditor Slack App
+project:
+  alias: chef/corefoundation
+
+# Slack channel in Chef Software slack to send notifications about build failures, etc
+slack:
+  notify_channel: chef-desktop-notify
+
+# Add a verify pipeline that will be triggered from GitHub. The results are also shared on the pull request. 
+pipelines:
+  - verify:
+    description: Verify pull requests on GitHub
+
+github:
+  # This deletes the GitHub PR branch after successfully merged into the release branch
+  delete_branch_on_merge: true
+  # Enforce DCO signing of commits.
+  enforce_dco_signoff: true
+
+# Release channels
+# artifact_channels:
+#   - unstable
+#   - stable
+
+# Specify release configurations
+# release_branches:
+#   - master:
+#       version_constraint: "1.*"
+
+# Build and release flow
+# subscriptions:
+#   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
+#     actions:
+#       - built_in:bump_version:
+#           ignore_labels:
+#             - "Expeditor: Skip All"
+#             - "Expeditor: Skip Version Bump"
+#       - bash:.expeditor/update_version.sh:
+#           only_if:
+#             - built_in:bump_version
+#       - trigger_pipeline:release:
+#           only_if:
+#             - trigger_pipeline:verify
