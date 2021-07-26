@@ -2,7 +2,7 @@
 ---
 # The name we use for this project when interacting with Expeditor Slack App
 project:
-  alias: chef/corefoundation
+  alias: chef-corefoundation
 
 # Slack channel in Chef Software slack to send notifications about build failures, etc
 slack:
