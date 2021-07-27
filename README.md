@@ -1,9 +1,6 @@
-[![Build Status](https://travis-ci.org/fcheung/corefoundation.png)](https://travis-ci.org/fcheung/corefoundation)
+# CoreFoundation
 
-CoreFoundation
-==============
-
-FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other OS X libraries.
+FFI based wrappers for a subset of core foundation: various bits of CFString, CFData, CFArray, CFDictionary are available. Not that useful on its own but a useful building block for writing ffi wrappers of other macOS libraries.
 
 Although the CF collection classes can store arbitrary pointer sized values this wrapper only supports storing CFTypes.
 
@@ -11,8 +8,7 @@ The CF namespace has the raw FFI generated method calls but it's usually easier 
 
 These implement methods for creating new instances from ruby objects (eg `CF::String.from_string("hello world")`) but you can also pass build them from an `FFI::Pointer`).
 
-Converting
-===========
+## Converting
 
 `CF::Base` objects has a `to_ruby` that creates a ruby object of the most approprite type (`String` for `CF::String`, `Time` for `CF::Date`, `Integer` or `Float` for `CF::Number` etc). The collection classes call `to_ruby` on their contents too.
 
@@ -20,8 +16,7 @@ In addition to the methods on the wrapper classes themselves, the ruby classes a
 
 If you have an `FFI::Pointer` or a raw address then you can create a wrapper by passing it to `new`, for example `CF::String.new(some_pointer)`. This does *not* check that the pointer is actually a `CFString`. You can use `CF::Base.typecast` to construct an instance of the appropriate subclass, for example `CF::Base.typecast(some_pointer)` would return a `CF::String` if `some_pointer` was in fact a `CFStringRef`.
 
-Memory Management
-=================
+## Memory Management
 
 The convenience methods for creating CF objects will release the cf object when they are garbage collected. Methods on the convenience classes will usually retain the result and mark it for releasing when they are garbage collected (for example `CF::Dictionary#[]` retains the returned value). You don't need to do any extra memory management on these.
 
@@ -29,13 +24,10 @@ If you pass an `FFI::Pointer` to `new` or `typecast` no assumptions are made for
 
 If you use the raw api (eg `CF.CFArrayCreate`) then you're on your own.
 
+## Compatibility
 
-Compatibility
-=============
+Should work in MRI 2.6 and above and jruby. Not compatible with rubinius due to rubinius' ffi implementation not supporting certain features.
 
-Should work in MRI 1.8.7 and above and jruby. Not compatible with rubinius due to rubinius' ffi implementation not supporting certain features. On 1.8.7 the `binary?` and `binary!` methods tag a string's binary-ness with a flag, on 1.9 these methods are just shortcuts for testing whether the encoding is Encoding::ASCII_8BIT
-
-License
-=======
+## License
 
 Released under the MIT license. See LICENSE

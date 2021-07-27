@@ -6,20 +6,18 @@ Gem::Specification.new do |s|
   s.name = %q{corefoundation}
   s.version = CF::VERSION
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Frederick Cheung"]
-  s.date = %q{2012-12-06}
-  s.description = %q{FFI based Ruby wrappers for Core Foundation }
-  s.email = %q{frederick.cheung@gmail.com}
+  s.authors = ["Frederick Cheung", "Chef Software, Inc."]
+  s.description = %q{Ruby wrapper for macOS Core Foundation framework}
+  s.summary = %q{Ruby wrapper for macOS Core Foundation framework}
+  s.email = ["frederick.cheung@gmail.com", "oss@chef.io"]
   s.files += Dir["lib/**/*.rb"]
   s.files += Dir["spec/**/*"]
-  s.files += ['README.md', 'LICENSE', 'CHANGELOG']
+  s.files += ['README.md', 'LICENSE', 'CHANGELOG.md']
   s.license = 'MIT'
-  s.homepage = %q{http://github.com/fcheung/corefoundation}
+  s.homepage = %q{http://github.com/chef/corefoundation}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.8.10}
-  s.summary = %q{Ruby wrapper for OS X corefoundation}  
-  s.required_ruby_version = '>= 1.8.7'
+
+  s.required_ruby_version = '>= 2.6'
 
   s.add_runtime_dependency "ffi"
   s.add_development_dependency "rspec", "~>2.10"
@@ -27,4 +25,3 @@ Gem::Specification.new do |s|
   s.add_development_dependency "yard"
   s.add_development_dependency "redcarpet"
 end
-
