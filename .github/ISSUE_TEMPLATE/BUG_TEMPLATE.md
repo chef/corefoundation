@@ -6,18 +6,12 @@ labels: "Status: Untriaged, Type: Bug"
 
 ## Description
 
-Briefly describe the issue
+Briefly describe the issue.
 
-## Ohai Version
+## macOS Release
 
-Tell us which version of Ohai you are using.
+Tell us what version of macOS you're using.
 
-## Platform Version
+## Ruby Release
 
-Tell us which Operating System distribution and version Ohai is running on.
-
-## Ohai Output
-
-If relevant please include your complete Ohai output or link to a gist. Make sure to change any values that may be sensitive.
-
-The debug output (ohai -l debug) may be useful, but please link to a gist, or truncate it.
+Tell us what version of Ruby you're using.
