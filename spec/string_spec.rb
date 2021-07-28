@@ -4,7 +4,7 @@ describe CF::String do
 
   describe 'from_string' do
     it 'should return a CF::String' do
-      CF::String.from_string('A CF string').should be_a(CF::String)
+      expect(CF::String.from_string('A CF string')).to be_a(CF::String)
     end
 
     # The intent is to force feed CF::String with an invalid utf-8 string
@@ -34,6 +34,6 @@ describe CF::String do
   end
 
   it 'should be comparable' do
-    CF::String.from_string('aaa').should  <= CF::String.from_string('zzz')
+    expect(CF::String.from_string('aaa')).to be <= CF::String.from_string('zzz')
   end
 end

@@ -13,15 +13,15 @@ describe CF::Data do
 
   describe '#size' do
     it 'should return the size in bytes of the cfdata' do
-      subject.size.should == 11
+      expect(subject.size).to eq(11)
     end
   end
 
   describe 'to_ruby' do
     it 'should behave like to_s' do
-      subject.to_ruby.should == 'A CF string'
+      expect(subject.to_ruby).to eq('A CF string')
       if 'A CF string'.respond_to? "encoding"
-        subject.to_ruby.encoding.should == Encoding::ASCII_8BIT
+        expect(subject.to_ruby.encoding).to eq(Encoding::ASCII_8BIT)
       end
     end
   end
