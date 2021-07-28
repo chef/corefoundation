@@ -28,7 +28,12 @@ module CF
     # @param [FFI::Pointer] pointer The pointer to wrap
     def initialize(pointer)
       @ptr = FFI::Pointer.new(pointer)
-      ObjectSpace.define_finalizer(ptr, proc { CF.release(ptr.address) unless ptr.address.zero? })
+      ObjectSpace.define_finalizer(self, self.class.finalize(ptr))
+    end
+
+    # @param [FFI::Pointer] pointer to the address of the object
+    def self.finalize(pointer)
+      proc { CF.release(pointer.address) unless pointer.address.zero }
     end
 
     # Whether the instance is the CFNull singleton
