@@ -11,11 +11,7 @@ describe CF::String do
     unless defined? RUBY_ENGINE && (RUBY_ENGINE == "jruby")
       context "with invalid data" do
         it "returns nil" do
-          if CF::String::HAS_ENCODING
-            expect(CF::String.from_string("\xff\xff\xff".force_encoding("UTF-8"))).to be_nil
-          else
-            expect(CF::String.from_string("\xff\xff\xff")).to be_nil
-          end
+          expect(CF::String.from_string("\xff\xff\xff".force_encoding("UTF-8"))).to be_nil
         end
       end
     end
@@ -25,14 +21,14 @@ describe CF::String do
     it "should return a utf ruby string" do
       ruby_string = CF::String.from_string("A CF string").to_s
       expect(ruby_string).to eq("A CF string")
-      expect(ruby_string.encoding).to eq(Encoding::UTF_8) if CF::String::HAS_ENCODING
+      expect(ruby_string.encoding).to eq(Encoding::UTF_8)
     end
   end
 
   describe "to_ruby" do
     it "should behave like to_s" do
       expect(CF::String.from_string("A CF string").to_ruby).to eq("A CF string")
-      expect(CF::String.from_string("A CF string").to_ruby.encoding).to eq(Encoding::UTF_8) if CF::String::HAS_ENCODING
+      expect(CF::String.from_string("A CF string").to_ruby.encoding).to eq(Encoding::UTF_8)
     end
   end
 

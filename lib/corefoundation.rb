@@ -1,5 +1,4 @@
 require "ffi" unless defined?(FFI)
-require "iconv" if RUBY_VERSION < "1.9"
 
 require "corefoundation/base_wrapper"
 require "corefoundation/base"

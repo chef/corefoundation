@@ -55,14 +55,8 @@ describe "extensions" do
         expect("123").not_to be_binary
       end
 
-      if CF::String::HAS_ENCODING
-        it "should return false on valid utf data" do
-          expect("\xc3\xc9").not_to be_binary
-        end
-      else
-        it "should return false on valid utf data" do
-          expect(uber.pack("C*")).not_to be_binary
-        end
+      it "should return false on valid utf data" do
+        expect("\xc3\xc9").not_to be_binary
       end
 
       it "should return false on string forced to non binary" do
@@ -73,14 +67,8 @@ describe "extensions" do
         expect("123".binary!).to be_binary
       end
 
-      if CF::String::HAS_ENCODING
-        it "should return true for ascii 8bit strings" do
-          expect("123".encode(Encoding::ASCII_8BIT)).to be_binary
-        end
-      else
-        it "should return true for data that cannot be converted to utf8" do
-          expect("\xff\xff\xff").to be_binary
-        end
+      it "should return true for ascii 8bit strings" do
+        expect("123".encode(Encoding::ASCII_8BIT)).to be_binary
       end
     end
   end
