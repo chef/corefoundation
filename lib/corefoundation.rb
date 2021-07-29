@@ -24,3 +24,4 @@ FalseClass.include CF::CoreExtensions::FalseClass
 String.include CF::CoreExtensions::String
 Time.include CF::CoreExtensions::Time
 Hash.include CF::CoreExtensions::Hash
+
