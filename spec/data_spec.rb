@@ -6,10 +6,8 @@ describe CF::Data do
   describe '#to_s' do
     it 'should return a binary ruby string' do
       ruby_string = subject.to_s
-      ruby_string.should == 'A CF string'
-      if CF::String::HAS_ENCODING
-        ruby_string.encoding.should == Encoding::ASCII_8BIT
-      end
+      expect(ruby_string).to eq("A CF string")
+      expect(ruby_string.encoding).to eq(Encoding::ASCII_8BIT)
     end
   end
 

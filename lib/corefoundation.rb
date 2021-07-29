@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
-require 'ffi'
-require 'iconv' if RUBY_VERSION < '1.9'
+require "ffi" unless defined?(FFI)
 
 require 'corefoundation/memory'
 require 'corefoundation/register'
