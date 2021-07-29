@@ -11,8 +11,7 @@ Gem::Specification.new do |s|
   s.summary = "Ruby wrapper for macOS Core Foundation framework"
   s.email = ["frederick.cheung@gmail.com", "oss@chef.io"]
   s.files += Dir["lib/**/*.rb"]
-  s.files += Dir["spec/**/*"]
-  s.files += ["README.md", "LICENSE", "CHANGELOG.md"]
+  s.files += ["LICENSE"]
   s.license = "MIT"
   s.homepage = "http://github.com/chef/corefoundation"
   s.require_paths = ["lib"]
