@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 # The top level namespace for the corefoundation library. The raw FFI generated methods are attached here
 module CF
   extend FFI::Library
-  ffi_lib '/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation'
+  ffi_lib "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
 
-  if FFI::Platform::ARCH == 'x86_64'
+  if FFI::Platform::ARCH == "x86_64"
     typedef :long_long, :cfindex
     typedef :long_long, :cfcomparisonresult
     typedef :ulong_long, :cfoptionflags
@@ -21,13 +19,13 @@ module CF
 
   typedef :pointer, :cftyperef
 
-  attach_function :show, 'CFShow', [:cftyperef], :void
-  attach_function :release, 'CFRelease', [:cftyperef], :void
-  attach_function :retain, 'CFRetain', [:cftyperef], :cftyperef
-  attach_function 'CFEqual', %i[cftyperef cftyperef], :char
-  attach_function 'CFHash', [:cftyperef], :cfhashcode
-  attach_function 'CFCopyDescription', [:cftyperef], :cftyperef
-  attach_function 'CFGetTypeID', [:cftyperef], :cftypeid
+  attach_function :show, "CFShow", [:cftyperef], :void
+  attach_function :release, "CFRelease", [:cftyperef], :void
+  attach_function :retain, "CFRetain", [:cftyperef], :cftyperef
+  attach_function "CFEqual", %i{cftyperef cftyperef}, :char
+  attach_function "CFHash", [:cftyperef], :cfhashcode
+  attach_function "CFCopyDescription", [:cftyperef], :cftyperef
+  attach_function "CFGetTypeID", [:cftyperef], :cftypeid
 
   # @private
   class Range < FFI::Struct

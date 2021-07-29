@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CF
   # @private
   class DictionaryKeyCallbacks < FFI::Struct
@@ -23,17 +21,17 @@ module CF
   typedef :pointer, :cfdictionaryref
   attach_variable :kCFTypeDictionaryKeyCallBacks, DictionaryKeyCallbacks
   attach_variable :kCFTypeDictionaryValueCallBacks, DictionaryValueCallbacks
-  attach_function :CFDictionaryCreateMutable, %i[pointer cfindex pointer pointer], :cfdictionaryref
+  attach_function :CFDictionaryCreateMutable, %i{pointer cfindex pointer pointer}, :cfdictionaryref
 
-  attach_function :CFDictionarySetValue, %i[cfdictionaryref pointer pointer], :void
-  attach_function :CFDictionaryGetValue, %i[cfdictionaryref pointer], :pointer
+  attach_function :CFDictionarySetValue, %i{cfdictionaryref pointer pointer}, :void
+  attach_function :CFDictionaryGetValue, %i{cfdictionaryref pointer}, :pointer
 
-  attach_function :CFDictionaryGetValue, %i[cfdictionaryref pointer], :pointer
+  attach_function :CFDictionaryGetValue, %i{cfdictionaryref pointer}, :pointer
   attach_function :CFDictionaryGetCount, [:cfdictionaryref], :cfindex
 
-  callback :each_applier, %i[pointer pointer pointer], :void
+  callback :each_applier, %i{pointer pointer pointer}, :void
 
-  attach_function :CFDictionaryApplyFunction, %i[cfdictionaryref each_applier pointer], :void
+  attach_function :CFDictionaryApplyFunction, %i{cfdictionaryref each_applier pointer}, :void
 
   # Wrapper class for CFDictionary. It implements Enumerable.
   #
@@ -41,7 +39,7 @@ module CF
   # collection. This means you can safely use the returned values even if the CFDictionary itself has been destroyed
   #
   class Dictionary < Base
-    register_type('CFDictionary')
+    register_type("CFDictionary")
     include Enumerable
 
     # Return a new, empty mutable CF::Dictionary

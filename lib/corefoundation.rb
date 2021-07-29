@@ -1,22 +1,20 @@
-# frozen_string_literal: true
+require "ffi" unless defined?(FFI)
+require "iconv" if RUBY_VERSION < "1.9"
 
-require 'ffi'
-require 'iconv' if RUBY_VERSION < '1.9'
+require "corefoundation/base_wrapper"
+require "corefoundation/base"
+require "corefoundation/null"
+require "corefoundation/string"
+require "corefoundation/array"
+require "corefoundation/boolean"
+require "corefoundation/data"
+require "corefoundation/dictionary"
+require "corefoundation/number"
+require "corefoundation/date"
 
-require 'corefoundation/base_wrapper'
-require 'corefoundation/base'
-require 'corefoundation/null'
-require 'corefoundation/string'
-require 'corefoundation/array'
-require 'corefoundation/boolean'
-require 'corefoundation/data'
-require 'corefoundation/dictionary'
-require 'corefoundation/number'
-require 'corefoundation/date'
-
-require 'corefoundation/error'
-require 'corefoundation/extensions'
-require 'corefoundation/preferences'
+require "corefoundation/error"
+require "corefoundation/extensions"
+require "corefoundation/preferences"
 
 # REVIEW: Include patches from module
 Integer.include CF::CoreExtensions::Integer

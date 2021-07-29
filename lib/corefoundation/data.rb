@@ -1,17 +1,15 @@
-# frozen_string_literal: true
-
 module CF
   typedef :pointer, :cfdataref
 
-  attach_function 'CFDataCreate', %i[pointer buffer_in cfindex], :cfdataref
-  attach_function 'CFDataGetLength', [:cfdataref], :cfindex
-  attach_function 'CFDataGetBytePtr', [:cfdataref], :pointer
+  attach_function "CFDataCreate", %i{pointer buffer_in cfindex}, :cfdataref
+  attach_function "CFDataGetLength", [:cfdataref], :cfindex
+  attach_function "CFDataGetBytePtr", [:cfdataref], :pointer
 
   # Wrapper for CFData
   #
   #
   class Data < Base
-    register_type('CFData')
+    register_type("CFData")
 
     # Creates a CFData from a ruby string
     # @param [String] str the string to use

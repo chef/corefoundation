@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 module CF
-  attach_variable 'kCFBooleanTrue', :pointer
-  attach_variable 'kCFBooleanFalse', :pointer
-  attach_function 'CFBooleanGetValue', [:pointer], :uchar
+  attach_variable "kCFBooleanTrue", :pointer
+  attach_variable "kCFBooleanFalse", :pointer
+  attach_function "CFBooleanGetValue", [:pointer], :uchar
 
   # Wrapper for CFBooleanRef.
   # Typically you use the CF::Boolean::TRUE and CF::Boolean::FALSE constants
   #
   class Boolean < Base
-    register_type('CFBoolean')
+    register_type("CFBoolean")
     # A constant containing kCFBooleanTrue
     TRUE = new(CF.kCFBooleanTrue)
     # A constant containing kCFBooleanFalse

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CF
   # REVIEW: Add patches as module and wrap them into CoreExtensions module.
   #   This avoids opening ruby core classes and keeps the patches modularized.
@@ -76,7 +74,7 @@ module CF
       # If you have never called {#binary!} then a string is binary if Iconv does not think it is valid utf-8
       # @return whether the string is handled as binary data or not
       #
-      if '<3'.respond_to? :encoding
+      if "<3".respond_to? :encoding
         def binary?
           encoding == Encoding::ASCII_8BIT
         end
@@ -84,7 +82,7 @@ module CF
         def binary?
           unless defined? @cf_is_binary
             begin
-              ::Iconv.conv('UTF-8', 'UTF-8', self)
+              ::Iconv.conv("UTF-8", "UTF-8", self)
               return false if frozen?
 
               @cf_is_binary = false
@@ -98,7 +96,7 @@ module CF
         end
       end
 
-      if '<3'.respond_to? :encoding
+      if "<3".respond_to? :encoding
         # On ruby 1.8.7 sets or clears the flag used by {#binary?}. On ruby 1.9 the string's encoding is forced.
         # @see #binary?
         #
@@ -113,7 +111,7 @@ module CF
             force_encoding Encoding::ASCII_8BIT
           else
             # default to utf-8
-            force_encoding(bin == false ? 'UTF-8' : bin)
+            force_encoding(bin == false ? "UTF-8" : bin)
           end
           self
         end

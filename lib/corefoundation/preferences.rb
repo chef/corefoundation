@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Maps Preferences Utilities
 # Documentation at https://developer.apple.com/documentation/corefoundation/preferences_utilities
 
@@ -11,19 +9,19 @@ module CF
   typedef :cfstringref, :hostname
   typedef :cfpropertylistref, :value
 
-  attach_variable 'kCFPreferencesCurrentUser', :cfstringref
-  attach_variable 'kCFPreferencesAnyUser', :cfstringref
-  attach_variable 'kCFPreferencesCurrentHost', :cfstringref
-  attach_variable 'kCFPreferencesAnyHost', :cfstringref
-  attach_variable 'kCFPreferencesAnyApplication', :cfstringref
+  attach_variable "kCFPreferencesCurrentUser", :cfstringref
+  attach_variable "kCFPreferencesAnyUser", :cfstringref
+  attach_variable "kCFPreferencesCurrentHost", :cfstringref
+  attach_variable "kCFPreferencesAnyHost", :cfstringref
+  attach_variable "kCFPreferencesAnyApplication", :cfstringref
 
-  attach_function 'CFPreferencesCopyAppValue', %i[key application_id], :cfpropertylistref
-  attach_function 'CFPreferencesCopyValue', %i[key application_id username hostname], :cfpropertylistref
-  attach_function 'CFPreferencesCopyKeyList', %i[application_id username hostname], :cfarrayref
+  attach_function "CFPreferencesCopyAppValue", %i{key application_id}, :cfpropertylistref
+  attach_function "CFPreferencesCopyValue", %i{key application_id username hostname}, :cfpropertylistref
+  attach_function "CFPreferencesCopyKeyList", %i{application_id username hostname}, :cfarrayref
 
-  attach_function 'CFPreferencesSetAppValue', %i[key value application_id], :void
-  attach_function 'CFPreferencesSetValue', %i[key value application_id username hostname], :void
-  attach_function 'CFPreferencesAppSynchronize', [:application_id], :bool
+  attach_function "CFPreferencesSetAppValue", %i{key value application_id}, :void
+  attach_function "CFPreferencesSetValue", %i{key value application_id username hostname}, :void
+  attach_function "CFPreferencesAppSynchronize", [:application_id], :bool
 
   class Preferences
     CURRENT_USER = CF.kCFPreferencesCurrentUser

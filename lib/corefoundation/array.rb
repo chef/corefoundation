@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CF
   typedef :pointer, :cfarrayref
 
@@ -13,14 +11,14 @@ module CF
   end
 
   attach_variable :kCFTypeArrayCallBacks, ArrayCallbacks
-  attach_function :CFArrayCreate, %i[pointer pointer cfindex pointer], :cfarrayref
-  attach_function :CFArrayCreateMutable, %i[pointer cfindex pointer], :cfarrayref
-  attach_function :CFArrayGetValueAtIndex, %i[pointer cfindex], :pointer
-  attach_function :CFArraySetValueAtIndex, %i[pointer cfindex pointer], :void
-  attach_function :CFArrayAppendValue, %i[pointer pointer], :void
+  attach_function :CFArrayCreate, %i{pointer pointer cfindex pointer}, :cfarrayref
+  attach_function :CFArrayCreateMutable, %i{pointer cfindex pointer}, :cfarrayref
+  attach_function :CFArrayGetValueAtIndex, %i{pointer cfindex}, :pointer
+  attach_function :CFArraySetValueAtIndex, %i{pointer cfindex pointer}, :void
+  attach_function :CFArrayAppendValue, %i{pointer pointer}, :void
   attach_function :CFArrayGetCount, [:pointer], :cfindex
 
-  callback :each_applier, %i[pointer pointer], :void
+  callback :each_applier, %i{pointer pointer}, :void
 
   attach_function :CFArrayApplyFunction, [:cfarrayref, CF::Range.by_value, :each_applier, :pointer], :void
 
@@ -32,7 +30,7 @@ module CF
   # Unlike ruby arrays you cannot set arbitary array indexes - You can only set indexes in the range 0..length
   class Array < Base
     include Enumerable
-    register_type('CFArray')
+    register_type("CFArray")
 
     # Whether the array is mutable
     #
@@ -92,7 +90,7 @@ module CF
     # @param [CF::Base] value the value to store
     # @return [CF::Base] the store value
     def []=(index, value)
-      raise TypeError, 'Instance is not mutable' unless mutable?
+      raise TypeError, "Instance is not mutable" unless mutable?
 
       self.class.check_cftype(value)
       CF.CFArraySetValueAtIndex(self, index, value)
@@ -102,7 +100,7 @@ module CF
     #
     # @return [CF::Array] self
     def <<(value)
-      raise TypeError, 'Instance is not mutable' unless mutable?
+      raise TypeError, "Instance is not mutable" unless mutable?
 
       self.class.check_cftype(value)
       CF.CFArrayAppendValue(self, value)

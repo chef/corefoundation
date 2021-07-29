@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CF
   typedef :pointer, :cfnumberref
   enum :cf_number_type, [
@@ -22,16 +20,16 @@ module CF
     :kCFNumberMaxType, 16
   ]
 
-  attach_function 'CFNumberGetValue', %i[cfnumberref cf_number_type pointer], :uchar
-  attach_function 'CFNumberCreate', %i[pointer cf_number_type pointer], :cfnumberref
-  attach_function 'CFNumberIsFloatType', [:pointer], :uchar
-  attach_function 'CFNumberCompare', %i[cfnumberref cfnumberref pointer], :cfcomparisonresult
+  attach_function "CFNumberGetValue", %i{cfnumberref cf_number_type pointer}, :uchar
+  attach_function "CFNumberCreate", %i{pointer cf_number_type pointer}, :cfnumberref
+  attach_function "CFNumberIsFloatType", [:pointer], :uchar
+  attach_function "CFNumberCompare", %i{cfnumberref cfnumberref pointer}, :cfcomparisonresult
 
   # Wrapper for CFNumberRef
   #
   #
   class Number < Base
-    register_type 'CFNumber'
+    register_type "CFNumber"
     include Comparable
 
     # Constructs a CF::Number from a float
@@ -56,7 +54,7 @@ module CF
     # @param [CF::Number] other
     # @return [Integer]
     def <=>(other)
-      raise TypeError, 'argument should be CF::Number' unless other.is_a?(CF::Number)
+      raise TypeError, "argument should be CF::Number" unless other.is_a?(CF::Number)
 
       CF.CFNumberCompare(self, other, nil)
     end
@@ -65,7 +63,7 @@ module CF
     #
     # @return [Integer, Float]
     def to_ruby
-      if CF.CFNumberIsFloatType(self).zero?
+      if CF.CFNumberIsFloatType(self) == 0
         to_i
       else
         to_f
@@ -77,7 +75,7 @@ module CF
     # @return [Integer]
     def to_i
       p = FFI::MemoryPointer.new(:int64)
-      if CF.CFNumberGetValue(self, :kCFNumberSInt64Type, p).zero?
+      if CF.CFNumberGetValue(self, :kCFNumberSInt64Type, p) == 0
         raise "CF.CFNumberGetValue failed to convert #{inspect} to kCFNumberSInt64Type"
       end
 
@@ -89,7 +87,7 @@ module CF
     # @return [Float]
     def to_f
       p = FFI::MemoryPointer.new(:double)
-      if CF.CFNumberGetValue(self, :kCFNumberDoubleType, p).zero?
+      if CF.CFNumberGetValue(self, :kCFNumberDoubleType, p) == 0
         raise "CF.CFNumberGetValue failed to convert #{inspect} to kCFNumberDoubleType"
       end
 

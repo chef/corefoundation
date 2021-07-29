@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # The top level namespace for the corefoundation library. The raw FFI generated methods are attached here
 module CF
   # The base class for all of the wrapper classes in CF module.

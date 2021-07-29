@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 module CF
   typedef :pointer, :cfdateref
   typedef :double, :cfabsolutetime
 
-  attach_function :CFDateCreate, %i[pointer cfabsolutetime], :cfdateref
+  attach_function :CFDateCreate, %i{pointer cfabsolutetime}, :cfdateref
   attach_function :CFDateGetAbsoluteTime, [:cfdateref], :cfabsolutetime
   attach_variable :kCFAbsoluteTimeIntervalSince1970, :double
 
@@ -12,7 +10,7 @@ module CF
   #
   #
   class Date < Base
-    register_type 'CFDate'
+    register_type "CFDate"
 
     # constructs a CF::Date from a ruby time
     #
