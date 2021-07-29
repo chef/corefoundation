@@ -57,7 +57,7 @@ module CF
           arg_to_cf(username),
           arg_to_cf(hostname)
         )
-        CF::Array.new(arr_ref).to_ruby
+        CF::Array.new(arr_ref).to_ruby unless arr_ref.null?
       end
 
       private
