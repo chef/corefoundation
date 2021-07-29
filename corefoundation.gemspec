@@ -19,8 +19,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.6'
 
-  s.add_runtime_dependency "ffi"
+  s.add_runtime_dependency "ffi", ">= 1.15.0"
   s.add_development_dependency "rspec", "~>2.10"
   s.add_development_dependency "rake"
+  s.add_development_dependency "chefstyle", "2.0.7"
   s.add_development_dependency "yard"
 end
