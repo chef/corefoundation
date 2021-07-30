@@ -75,8 +75,7 @@ module CF
     #
     # @return [String]
     def inspect
-      cf = CF::String.new(CF.CFCopyDescription(self))
-      cf.to_s.tap { cf.release }
+      CF::String.new(CF.CFCopyDescription(self)).to_s
     end
 
     # Calls CFRelease on the wrapped pointer
