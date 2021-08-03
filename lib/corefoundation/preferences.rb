@@ -31,14 +31,14 @@ module CF
 
     class << self
       def get(key, application_id, username = nil, hostname = nil)
-        # TODO: Check usecase for `CFPreferencesCopyAppValue`
-
-        plist_ref = if username && hostname
-                      CF.CFPreferencesCopyValue(key.to_cf, application_id.to_cf, arg_to_cf(username),
-                                                arg_to_cf(hostname))
-                    else
-                      CF.CFPreferencesCopyAppValue(key.to_cf, application_id.to_cf)
-                    end
+        username ||= CURRENT_USER
+        hostname ||= ALL_HOSTS
+        plist_ref = CF.CFPreferencesCopyValue(
+          key.to_cf,
+          application_id.to_cf,
+          arg_to_cf(username),
+          arg_to_cf(hostname)
+        )
         CF::Base.typecast(plist_ref).to_ruby unless plist_ref.null?
       end
 
@@ -46,23 +46,31 @@ module CF
         get(key, application_id, username, hostname) || (raise CF::Error, "Preference key `#{key}` not found")
       end
 
-      def set(key, value, application_id, username = CURRENT_USER, hostname = CURRENT_HOST)
+      def set(key, value, application_id, username = nil, hostname = nil)
+        username ||= CURRENT_USER
+        hostname ||= ALL_HOSTS
         CF.CFPreferencesSetValue(key.to_cf, value.to_cf, application_id.to_cf, arg_to_cf(username), arg_to_cf(hostname))
         CF.CFPreferencesAppSynchronize(application_id.to_cf)
       end
 
-      def list_keys(application_id, username, hostname)
+      def valid_key?(key, application_id, username = nil, hostname = nil)
+        domain_keys = list_keys(application_id, username, hostname)
+        domain_keys.include?(key)
+      end
+
+      private
+
+      def list_keys(application_id, username = nil, hostname = nil)
+        username ||= CURRENT_USER
+        hostname ||= ALL_HOSTS
         arr_ref = CF.CFPreferencesCopyKeyList(
           application_id.to_cf,
           arg_to_cf(username),
           arg_to_cf(hostname)
         )
-        CF::Array.new(arr_ref).to_ruby unless arr_ref.null?
+        arr_ref.null? ? [] : CF::Array.new(arr_ref).to_ruby
       end
 
-      private
-
-      # Check for constants CURRENT_USER, ALL_HOSTS etc.
       def arg_to_cf(arg)
         arg.respond_to?(:to_cf) ? arg.to_cf : arg
       end
