@@ -10,6 +10,21 @@ These implement methods for creating new instances from ruby objects (eg `CF::St
 
 ## Setup
 
+Add this to your Gemfile
+
+```ruby
+gem 'corefoundation'
+```
+and run
+
+```bash
+bundle install
+```
+
+## Usage
+
+### Preferences interface
+
 1. Add `gem 'corefoundation', git: "https://github.com/chef/corefoundation.git"` to your gemfile
 2. `bundle install`
 
