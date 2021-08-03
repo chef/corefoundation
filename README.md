@@ -11,10 +11,12 @@ These implement methods for creating new instances from ruby objects (eg `CF::St
 ## Setup
 
 Add this to your Gemfile
+
 ```ruby
 gem 'corefoundation'
 ```
 and run
+
 ```bash
 bundle install
 ```
