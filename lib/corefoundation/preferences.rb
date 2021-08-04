@@ -81,7 +81,7 @@ module CF
     def self.set(key, value, application_id, username = nil, hostname = nil)
       username ||= CURRENT_USER
       hostname ||= ALL_HOSTS
-      CF.CFPreferencesSetValue(key.to_cf, value.to_cf, application_id.to_cf, arg_to_cf(username), arg_to_cf(hostname))
+      CF.CFPreferencesSetValue(key.to_cf, arg_to_cf(value), application_id.to_cf, arg_to_cf(username), arg_to_cf(hostname))
       CF.CFPreferencesAppSynchronize(application_id.to_cf)
     end
 
