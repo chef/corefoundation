@@ -85,6 +85,23 @@ module CF
       CF.CFPreferencesAppSynchronize(application_id.to_cf)
     end
 
+    # Calls the {#self.set} method and raise a `PreferenceSyncFailed` error if `false` is returned.
+    #
+    # @param [String] key Preference key to write
+    # @param [String] application_id Preference domain for the key
+    # @param [String, Symbol] username Domain user (current, any or a specific user)
+    # @param [String, Symbol] hostname Hostname (current, all hosts or a specific host)
+    #
+    # @raise [PreferenceSyncFailed] If {#self.set} call returned false.
+    #
+    # @return [VALUE] Returns true if preference value is successfully written.
+    #
+    def self.set!(key, value, application_id, username = nil, hostname = nil)
+      hostname = arg_to_cf(hostname || ALL_HOSTS)
+      hostname = CF::Base.typecast(hostname).to_ruby
+      raise(CF::Exceptions::PreferenceSyncFailed.new(key, application_id, hostname)) unless set(key, value, application_id, username, hostname)
+    end
+
     # Checks whether a key exists in the preference domain. It'll also return false for an invalid domain.
     #
     # @param [String] key Preference key to read
