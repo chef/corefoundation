@@ -11,6 +11,7 @@ require_relative "corefoundation/dictionary"
 require_relative "corefoundation/number"
 require_relative "corefoundation/date"
 
+require_relative "corefoundation/exceptions"
 require_relative "corefoundation/extensions"
 require_relative "corefoundation/preferences"
 
