@@ -94,7 +94,7 @@ module CF
     #
     # @raise [PreferenceSyncFailed] If {#self.set} call returned false.
     #
-    # @return [VALUE] Returns true if preference value is successfully written.
+    # @return [VALUE] Returns nil if preference value is successfully written.
     #
     def self.set!(key, value, application_id, username = nil, hostname = nil)
       hostname = arg_to_cf(hostname || ALL_HOSTS)
