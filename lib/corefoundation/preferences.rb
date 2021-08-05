@@ -64,8 +64,8 @@ module CF
     def self.get!(key, application_id, username = nil, hostname = nil)
       hostname = arg_to_cf(hostname || ALL_HOSTS)
       hostname = CF::Base.typecast(hostname).to_ruby
-      get(key, application_id, username, hostname) ||
-        raise(CF::Exceptions::PreferenceDoesNotExist.new(key, application_id, hostname))
+      value = get(key, application_id, username, hostname)
+      value.nil? ? raise(CF::Exceptions::PreferenceDoesNotExist.new(key, application_id, hostname)) : value
     end
 
     # Set the value for preference domain using `CFPreferencesSetValue`.
