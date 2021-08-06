@@ -116,8 +116,6 @@ module CF
       domain_keys.include?(key)
     end
 
-    private
-
     # Get all existing keys for a preference domain.
     #
     # @param [String] application_id Preference domain for the key
@@ -148,5 +146,7 @@ module CF
     def self.arg_to_cf(arg)
       arg.respond_to?(:to_cf) ? arg.to_cf : arg
     end
+
+    private_class_method :list_keys, :arg_to_cf
   end
 end
