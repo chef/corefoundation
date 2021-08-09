@@ -109,3 +109,12 @@ describe "extensions" do
     end
   end
 end
+
+describe Hash do
+  context "to_cf" do
+    it 'should return a CF::Dictionary' do
+      input = { "key1": "value", :key2 => "value2" }
+      expect(input.to_cf).to be_a CF::Dictionary
+    end
+  end
+end
