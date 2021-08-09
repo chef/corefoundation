@@ -64,22 +64,4 @@ describe CF::Preferences do
       end
     end
   end
-
-  describe "self.valid_key?" do
-    before do
-      CF::Preferences.set!(@validKey, @value, @validDomain)
-    end
-
-    context "when called for a valid domain/default pair" do
-      it 'returns true' do
-        expect(CF::Preferences.valid_key?(@validKey, @validDomain)).to eq true
-      end
-    end
-
-    context "when called for an invalid domain/default pair" do
-      it "returns false" do
-        expect(CF::Preferences.valid_key?(@invalidKey, @validDomain)).to eq false
-      end
-    end
-  end
 end

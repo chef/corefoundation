@@ -102,40 +102,6 @@ module CF
       raise(CF::Exceptions::PreferenceSyncFailed.new(key, application_id, hostname)) unless set(key, value, application_id, username, hostname)
     end
 
-    # Checks whether a key exists in the preference domain. It'll also return false for an invalid domain.
-    #
-    # @param [String] key Preference key to read
-    # @param [String] application_id Preference domain for the key
-    # @param [String, Symbol] username Domain user (current, any or a specific user)
-    # @param [String, Symbol] hostname Hostname (current, all hosts or a specific host)
-    #
-    # @return [TrueClass, FalseClass] Return true or false to indicate if it is a valid key.
-    #
-    def self.valid_key?(key, application_id, username = nil, hostname = nil)
-      domain_keys = list_keys(application_id, username, hostname)
-      domain_keys.include?(key)
-    end
-
-    # Get all existing keys for a preference domain.
-    #
-    # @param [String] application_id Preference domain for the key
-    # @param [String, Symbol] username Domain user (current, any or a specific user)
-    # @param [String, Symbol] hostname Hostname (current, all hosts or a specific host)
-    #
-    # @return [Array<String>] Array of key names
-    #
-    # @visiblity private
-    def self.list_keys(application_id, username = nil, hostname = nil)
-      username ||= CURRENT_USER
-      hostname ||= ALL_HOSTS
-      arr_ref = CF.CFPreferencesCopyKeyList(
-        application_id.to_cf,
-        arg_to_cf(username),
-        arg_to_cf(hostname)
-      )
-      arr_ref.null? ? [] : CF::Array.new(arr_ref).to_ruby
-    end
-
     # Convert an object from ruby to cf type.
     #
     # @param [VALUE, CFType] arg A ruby or corefoundation object.
@@ -147,6 +113,6 @@ module CF
       arg.respond_to?(:to_cf) ? arg.to_cf : arg
     end
 
-    private_class_method :list_keys, :arg_to_cf
+    private_class_method :arg_to_cf
   end
 end
