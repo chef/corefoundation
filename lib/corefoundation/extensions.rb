@@ -111,6 +111,7 @@ module CF
       # Converts the Hash to an mutable {CF::Dictionary} by calling `to_cf` on each key and value it contains
       # @return [CF::Dictionary]
       def to_cf
+        transform_keys! &:to_s # Convert all keys to strings
         CF::Dictionary.mutable.tap do |r|
           each do |k, v|
             r[k.to_cf] = v.to_cf
