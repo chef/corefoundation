@@ -11,17 +11,16 @@ Gem::Specification.new do |s|
   s.summary = %q{Ruby wrapper for macOS Core Foundation framework}
   s.email = ["frederick.cheung@gmail.com", "oss@chef.io"]
   s.files += Dir["lib/**/*.rb"]
-  s.files += Dir["spec/**/*"]
-  s.files += ['README.md', 'LICENSE', 'CHANGELOG.md']
-  s.license = 'MIT'
-  s.homepage = %q{http://github.com/chef/corefoundation}
+  s.files += ["LICENSE"]
+  s.license = "MIT"
+  s.homepage = "http://github.com/chef/corefoundation"
   s.require_paths = ["lib"]
 
   s.required_ruby_version = '>= 2.6'
 
-  s.add_runtime_dependency "ffi"
+  s.add_runtime_dependency "ffi", ">= 1.15.0"
   s.add_development_dependency "rspec", "~>2.10"
   s.add_development_dependency "rake"
+  s.add_development_dependency "chefstyle", "2.0.7"
   s.add_development_dependency "yard"
-  s.add_development_dependency "redcarpet"
 end
