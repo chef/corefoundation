@@ -1,20 +1,19 @@
 require "ffi" unless defined?(FFI)
 
-require 'corefoundation/memory'
-require 'corefoundation/register'
-require 'corefoundation/base'
-require 'corefoundation/null'
-require 'corefoundation/string'
-require 'corefoundation/array'
-require 'corefoundation/boolean'
-require 'corefoundation/data'
-require 'corefoundation/dictionary'
-require 'corefoundation/number'
-require 'corefoundation/date'
+require_relative 'corefoundation/memory'
+require_relative 'corefoundation/register'
+require_relative 'corefoundation/base'
+require_relative 'corefoundation/null'
+require_relative 'corefoundation/string'
+require_relative 'corefoundation/array'
+require_relative 'corefoundation/boolean'
+require_relative 'corefoundation/data'
+require_relative 'corefoundation/dictionary'
+require_relative 'corefoundation/number'
+require_relative 'corefoundation/date'
 
-require 'corefoundation/error'
-require 'corefoundation/extensions'
-require 'corefoundation/preferences'
+require_relative 'corefoundation/extensions'
+require_relative 'corefoundation/preferences'
 
 # REVIEW: Include patches from module
 Integer.include CF::CoreExtensions::Integer
