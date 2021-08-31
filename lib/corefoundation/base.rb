@@ -72,7 +72,7 @@ module CF
     end
 
     def to_ruby
-      raise "#{self.class} is missing an implemention for the to_ruby method."
+      raise CF::Exceptions::MethodNotImplemented, "#{self.class} should implement the to_ruby method."
     end
   end
 end
