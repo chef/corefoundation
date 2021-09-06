@@ -4,6 +4,8 @@
 module CF
   # The base class for all of the wrapper classes in CF module.
   class Base
+    using CF::Refinements
+
     @@type_map = {}
     include CF::Register
     include CF::Memory
@@ -74,6 +76,13 @@ module CF
 
     def to_ruby
       raise CF::Exceptions::MethodNotImplemented, "#{self.class} should implement the to_ruby method."
+    end
+
+    # This is a no-op on CF::Base and its subclasses. Always returns self.
+    #
+    # @return Returns self
+    def to_cf
+      self
     end
 
     private

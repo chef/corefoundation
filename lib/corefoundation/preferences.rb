@@ -24,6 +24,8 @@ module CF
   attach_function 'CFPreferencesAppSynchronize', [:application_id], :bool
 
   class Preferences
+    using CF::Refinements
+
     CURRENT_USER = CF.kCFPreferencesCurrentUser
     ALL_USERS = CF.kCFPreferencesAnyUser
     CURRENT_HOST = CF.kCFPreferencesCurrentHost

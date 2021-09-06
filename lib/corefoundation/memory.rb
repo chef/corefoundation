@@ -37,13 +37,6 @@ module CF
       self
     end
 
-    # This is a no-op on CF::Base and its subclasses. Always returns self.
-    #
-    # @return Returns self
-    def to_cf
-      self
-    end
-
     # Returns the wrapped pointer
     #
     # @return [FFI::Pointer]
