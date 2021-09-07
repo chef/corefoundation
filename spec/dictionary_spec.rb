@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-
 describe CF::Dictionary do
+  using CF::Refinements
   describe 'mutable' do
     it 'should return  a cf dictionary' do
       expect(CF::Dictionary.mutable).to be_a(CF::Dictionary)
