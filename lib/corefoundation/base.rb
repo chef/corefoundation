@@ -4,8 +4,9 @@
 module CF
   # The base class for all of the wrapper classes in CF module.
   class Base
-    include CF::Memory
+    @@type_map = {}
     include CF::Register
+    include CF::Memory
 
     attr_reader :ptr
 
@@ -73,6 +74,11 @@ module CF
 
     def to_ruby
       raise CF::Exceptions::MethodNotImplemented, "#{self.class} should implement the to_ruby method."
+    end
+
+    private
+    def self.type_map
+      @@type_map
     end
   end
 end
