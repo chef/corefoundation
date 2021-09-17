@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 module CF
-  # REVIEW: Add patches as module and wrap them into CoreExtensions module.
-  #   This avoids opening ruby core classes and keeps the patches modularized.
-  #   Patches are then included in their respective core classes directly in a single place
-  #   making it easier to track and toggle the patches for the core classes.
-  module CoreExtensions
+  module Refinements
     # Patches for ruby Integer
-    module Integer
+    refine Integer do
       # Converts the Integer to a {CF::Number} using {CF::Number.from_i}
       # @return [CF::Number]
       def to_cf
@@ -16,7 +12,7 @@ module CF
     end
 
     # Patches for ruby Float
-    module Float
+    refine Float do
       # Converts the Float to a {CF::Number} using {CF::Number.from_f}
       # @return [CF::Number]
       def to_cf
@@ -25,7 +21,7 @@ module CF
     end
 
     # Patches for ruby Array
-    module Array
+    refine Array do
       # Converts the Array to an immutable {CF::Array} by calling `to_cf` on each element it contains
       # @return [CF::Number]
       def to_cf
@@ -34,7 +30,7 @@ module CF
     end
 
     # Patches for ruby TrueClass
-    module TrueClass
+    refine TrueClass do
       # Returns a CF::Boolean object representing true
       # @return [CF::Boolean]
       def to_cf
@@ -43,7 +39,7 @@ module CF
     end
 
     # Patches for ruby FalseClass
-    module FalseClass
+    refine FalseClass do
       # Returns a CF::Boolean object representing false
       # @return [CF::Boolean]
       def to_cf
@@ -52,7 +48,7 @@ module CF
     end
 
     # Patches for ruby String
-    module String
+    refine String do
       # Returns a {CF::String} or {CF::Data} representing the string.
       # If {#binary?} returns true a {CF::Data} is returned, if not a {CF::String} is returned
       #
@@ -100,7 +96,7 @@ module CF
     end
 
     # Patches for ruby Time
-    module Time
+    refine Time do
       # Returns a {CF::Date} representing the time.
       # @return [CF::Date]
       def to_cf
@@ -109,7 +105,7 @@ module CF
     end
 
     # Patches for ruby Hash
-    module Hash
+    refine Hash do
       # Converts the Hash to an mutable {CF::Dictionary} by calling `to_cf` on each key and value it contains
       # @return [CF::Dictionary]
       def to_cf

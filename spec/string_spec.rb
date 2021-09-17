@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe CF::String do
-
   describe 'from_string' do
     it 'should return a CF::String' do
       expect(CF::String.from_string('A CF string')).to be_a(CF::String)
