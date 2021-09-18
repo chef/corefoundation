@@ -49,7 +49,7 @@ module CF
       range[:location] = 0
       range[:length] = length
       callback = lambda do |value, _|
-        yield Base.typecast(value).retain.release_on_gc
+        yield Base.typecast(value).retain
       end
       CF.CFArrayApplyFunction(self, range, callback, nil)
       self
@@ -64,13 +64,13 @@ module CF
       end
       m = FFI::MemoryPointer.new(:pointer, array.length)
       m.write_array_of_pointer(array)
-      new(CF.CFArrayCreate(nil,m,array.length,CF::kCFTypeArrayCallBacks.to_ptr)).release_on_gc
+      new(CF.CFArrayCreate(nil,m,array.length,CF::kCFTypeArrayCallBacks.to_ptr))
     end
 
     # Creates a new, empty mutable CFArray
     # @return [CF::Array] A mutable CF::Array containing the objects, setup to release the array upon garbage collection
     def self.mutable
-      result = new(CF.CFArrayCreateMutable nil, 0, CF::kCFTypeArrayCallBacks.to_ptr).release_on_gc
+      result = new(CF.CFArrayCreateMutable nil, 0, CF::kCFTypeArrayCallBacks.to_ptr)
       result.instance_variable_set(:@mutable, true)
       result
     end
@@ -79,7 +79,7 @@ module CF
     # @param [Integer] index the 0 based index of the item to retrieve. Behaviour is undefined if it is not in the range 0...size
     # @return [CF::Base] a subclass of CF::Base
     def [](index)
-      Base.typecast(CF.CFArrayGetValueAtIndex(self, index)).retain.release_on_gc
+      Base.typecast(CF.CFArrayGetValueAtIndex(self, index)).retain
     end
 
     # Sets object at the index
@@ -92,7 +92,6 @@ module CF
       raise TypeError, "instance is not mutable" unless mutable?
       self.class.check_cftype(value)
       CF.CFArraySetValueAtIndex(self, index, value)
-      value
     end
 
     # Appends a value to the array

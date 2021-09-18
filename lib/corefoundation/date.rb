@@ -17,7 +17,7 @@ module CF
     # @param [Time] time
     # @return [CF::Date] a CF::Date instance that will be released on garbage collection
     def self.from_time(time)
-      new(CF.CFDateCreate(nil, time.to_f - CF.kCFAbsoluteTimeIntervalSince1970)).release_on_gc
+      new(CF.CFDateCreate(nil, time.to_f - CF.kCFAbsoluteTimeIntervalSince1970))
     end
 
     # returns a ruby Time instance corresponding to the same point in time

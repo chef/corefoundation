@@ -15,7 +15,7 @@ module CF
     # @param [String] s the string to use
     # @return [CF::Data]
     def self.from_string(s)
-      new(CF.CFDataCreate(nil, s, s.bytesize)).release_on_gc
+      new(CF.CFDataCreate(nil, s, s.bytesize))
     end
 
     # Creates a ruby string from the wrapped data. The encoding will always be ASCII_8BIT
@@ -23,11 +23,7 @@ module CF
     # @return [String]
     def to_s
       ptr = CF.CFDataGetBytePtr(self)
-      if CF::String::HAS_ENCODING
-        ptr.read_string(CF.CFDataGetLength(self)).force_encoding(Encoding::ASCII_8BIT)
-      else
-        ptr.read_string(CF.CFDataGetLength(self))
-      end
+      ptr.read_string(CF.CFDataGetLength(self)).force_encoding(Encoding::ASCII_8BIT)
     end
 
     # The size in bytes of the CFData

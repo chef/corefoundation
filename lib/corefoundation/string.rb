@@ -20,26 +20,15 @@ module CF
     # The cfstring encoding for UTF8
     UTF8 = 0x08000100 #From cfstring.h
 
-    # workaround for ruby 1.8.7 compat
-    HAS_ENCODING = "foo".respond_to? "encode"
-
     # Creates a string from a ruby string
     # The string must be convertable to UTF-8
     #
     # @param [String] s 
     # @return [CF::String]
-    def self.from_string(s, src_encoding='UTF-8')
-      if HAS_ENCODING
-        s_utf = s.encode('UTF-8')
-      else
-        begin
-          s_utf = Iconv.conv('UTF-8', src_encoding, s.to_s)
-        rescue Iconv::IllegalSequence => e
-          return nil
-        end
-      end
+    def self.from_string(s)
+      s_utf = s.encode("UTF-8")
       raw = CF.CFStringCreateWithBytes(nil, s_utf, s_utf.bytesize, UTF8, 0)
-      raw.null? ? nil : new(raw).release_on_gc
+      raw.null? ? nil : new(raw)
     end
 
     # Returns the length, in unicode characters of the string
@@ -65,27 +54,15 @@ module CF
       range[:location] = 0
       range[:length] = length
       buffer = FFI::MemoryPointer.new(:char, max_size)
-
       cfindex = CF.find_type(:cfindex)
       bytes_used_buffer = FFI::MemoryPointer.new(cfindex)
 
       CF.CFStringGetBytes(self, range, UTF8, 0, 0, buffer, max_size, bytes_used_buffer)
+      len = bytes_used_buffer.send(cfindex == CF.find_type(:long_long) ? :read_long_long : :read_long)
 
-      bytes_used = if cfindex == CF.find_type(:long_long)
-        bytes_used_buffer.read_long_long
-      else
-        bytes_used_buffer.read_long
-      end
-
-      if HAS_ENCODING
-        buffer.read_string(bytes_used).force_encoding(Encoding::UTF_8)
-      else
-        buffer.read_string(bytes_used)
-      end
+      buffer.read_string(len).force_encoding(Encoding::UTF_8)
     end
-
-    alias_method :to_ruby, :to_s
-
+    alias to_ruby to_s
   end
 
 end

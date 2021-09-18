@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-
 describe CF::Dictionary do
+  using CF::Refinements
   describe 'mutable' do
     it 'should return  a cf dictionary' do
-      CF::Dictionary.mutable.should be_a(CF::Dictionary)
+      expect(CF::Dictionary.mutable).to be_a(CF::Dictionary)
     end
   end
 
@@ -12,7 +12,7 @@ describe CF::Dictionary do
     subject {CF::Dictionary.mutable}
 
     it 'should return nil when the key does not exist' do
-      subject['doesnotexist'].should be_nil
+      expect(subject['doesnotexist']).to be_nil
     end
 
     it 'should raise when trying to store a non cf value' do
@@ -29,12 +29,12 @@ describe CF::Dictionary do
 
     it 'should instantiate the correct type on retrieval' do
       subject[CF::String.from_string('key')] = CF::String.from_string('value')
-      subject[CF::String.from_string('key')].should be_a(CF::String)
+      expect(subject[CF::String.from_string('key')]).to be_a(CF::String)
     end
 
     it 'should coerce string keys' do
       subject['key'] = CF::String.from_string('value')
-      subject['key'].to_s.should == 'value'
+      expect(subject['key'].to_s).to eq('value')
     end
   end
 
@@ -43,7 +43,7 @@ describe CF::Dictionary do
     it 'should merge the argument into the receiver' do
       argument = {'1' => false, 'foo' => 'bar'}.to_cf
       subject.merge! argument
-      subject.to_ruby.should == {'1' => false, '2' => false, 'foo' => 'bar'}
+      expect(subject.to_ruby).to eq({ '1' => false, '2' => false, 'foo' => 'bar' })
     end
   end
 
@@ -53,7 +53,7 @@ describe CF::Dictionary do
       dict['one'] = CF::Boolean::TRUE
       dict['two'] = CF::Boolean::TRUE
 
-      dict.length.should == 2
+      expect(dict.length).to eq(2)
     end
   end
 
@@ -65,8 +65,8 @@ describe CF::Dictionary do
       subject.each do |k,v|
         hash[k] = v
       end
-      hash.should == {CF::String.from_string('1') => CF::Boolean::TRUE, 
-                      CF::String.from_string('2') => CF::Boolean::FALSE}
+      expect(hash).to eq({ CF::String.from_string('1') => CF::Boolean::TRUE,
+                       CF::String.from_string('2') => CF::Boolean::FALSE })
     end
   end
 
@@ -74,7 +74,7 @@ describe CF::Dictionary do
     subject { CF::Dictionary.mutable.tap {|dict| dict['1'] = CF::Boolean::TRUE; dict['2'] = CF::Array.immutable([CF::Boolean::FALSE])}}
 
     it 'should return a ruby hash where keys and values have been converted to ruby types' do
-      subject.to_ruby.should == {'1' => true, '2' => [false]}
+      expect(subject.to_ruby).to eq({ '1' => true, '2' => [false] })
     end
   end
 
