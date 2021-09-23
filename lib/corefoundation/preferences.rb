@@ -41,15 +41,15 @@ module CF
       # @return [VALUE] Preference value returned from the `CFPreferencesCopyValue` call.
       #
       def get(key, application_id, username = nil, hostname = nil)
-        plist_ref = if username.nil? or hostname.nil?
-                      CF.CFPreferencesCopyAppValue(key.to_cf, application_id.to_cf)
-                    else
+        plist_ref = if username && hostname
                       CF.CFPreferencesCopyValue(
                         key.to_cf,
                         application_id.to_cf,
                         arg_to_cf(username),
                         arg_to_cf(hostname)
                       )
+                    else
+                      CF.CFPreferencesCopyAppValue(key.to_cf, application_id.to_cf)
                     end
         CF::Base.typecast(plist_ref).to_ruby unless plist_ref.null?
       end
@@ -85,19 +85,19 @@ module CF
       # @return [TrueClass, FalseClass] Returns true if preference was successfully written to storage, otherwise false.
       #
       def set(key, value, application_id, username = nil, hostname = nil)
-        if username.nil? or hostname.nil?
-          CF.CFPreferencesSetAppValue(
-            key.to_cf,
-            arg_to_cf(value),
-            application_id.to_cf
-          )
-        else
+        if username && hostname
           CF.CFPreferencesSetValue(
             key.to_cf,
             arg_to_cf(value),
             application_id.to_cf,
             arg_to_cf(username),
             arg_to_cf(hostname)
+          )
+        else
+          CF.CFPreferencesSetAppValue(
+            key.to_cf,
+            arg_to_cf(value),
+            application_id.to_cf
           )
         end
         CF.CFPreferencesAppSynchronize(application_id.to_cf)
