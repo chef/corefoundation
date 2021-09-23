@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe CF::Preferences do
+  using CF::Refinements
 
   before do
     @domain = "test.app.domain"
