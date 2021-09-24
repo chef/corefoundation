@@ -1,4 +1,4 @@
 module CF
   # The current version string
-  VERSION = "0.3.3"
+  VERSION = "0.3.4"
 end
