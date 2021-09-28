@@ -3,6 +3,8 @@ require "ffi" unless defined?(FFI)
 module CF
   extend FFI::Library
   ffi_lib '/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation'
+  ffi_lib '/System/Library/Frameworks/Security.framework/Security'
+  
 
   if FFI::Platform::ARCH == 'x86_64'
     typedef :long_long, :cfindex
@@ -19,6 +21,7 @@ module CF
   end
 
   typedef :pointer, :cftyperef
+  typedef :pointer, :cfdataref
 end
 
 require_relative 'corefoundation/memory'
@@ -35,6 +38,7 @@ require_relative 'corefoundation/number'
 require_relative 'corefoundation/date'
 require_relative 'corefoundation/preferences'
 require_relative 'corefoundation/extensions'
+require_relative 'corefoundation/security'
 
 # REVIEW: Include patches from module
 Integer.include CF::CoreExtensions::Integer
