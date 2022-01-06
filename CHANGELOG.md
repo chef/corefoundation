@@ -1,16 +1,17 @@
 # corefoundation changelog
 
-<!-- latest_release 0.3.8 -->
-## [v0.3.8](https://github.com/chef/corefoundation/tree/v0.3.8) (2021-11-16)
+<!-- latest_release 0.3.9 -->
+## [v0.3.9](https://github.com/chef/corefoundation/tree/v0.3.9) (2022-01-06)
 
 #### Merged Pull Requests
-- Update chefstyle requirement from = 2.1.2 to = 2.1.3 [#29](https://github.com/chef/corefoundation/pull/29) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Update chefstyle requirement from = 2.1.3 to = 2.2.0 [#30](https://github.com/chef/corefoundation/pull/30) ([dependabot[bot]](https://github.com/dependabot[bot]))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.3.4 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Update chefstyle requirement from = 2.1.3 to = 2.2.0 [#30](https://github.com/chef/corefoundation/pull/30) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.9 -->
 - Update chefstyle requirement from = 2.1.2 to = 2.1.3 [#29](https://github.com/chef/corefoundation/pull/29) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.8 -->
 - Update chefstyle requirement from = 2.1.1 to = 2.1.2 [#28](https://github.com/chef/corefoundation/pull/28) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.7 -->
 - Update chefstyle requirement from = 2.1.0 to = 2.1.1 [#27](https://github.com/chef/corefoundation/pull/27) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.6 -->
