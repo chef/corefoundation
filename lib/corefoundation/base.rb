@@ -37,7 +37,7 @@ module CF
 
     # @param [FFI::Pointer] pointer to the address of the object
     def self.finalize(pointer)
-      proc { CF.release(pointer) unless pointer.address.zero }
+      proc { CF.release(pointer.address) unless pointer.address.zero? }
     end
 
     # Whether the instance is the CFNull singleton
