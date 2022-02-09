@@ -11,11 +11,20 @@ describe CF::Array do
       it 'should raise when trying to store a non cf value' do
         expect {subject[0] = 123}.to raise_error(TypeError)
       end
+
+      it 'should update the value at index when trying to store a cf value' do
+        expect {subject[0] = CF::Number.from_i(123)}.to_not raise_error
+        expect(subject[0] == CF::Number.from_i(123)).to eq(true)
+      end
     end
 
     describe '<<' do
       it 'should raise when trying to store a non cf value' do
         expect {subject << 123}.to raise_error(TypeError)
+      end
+      it 'should successfully store a cf value' do
+        expect {subject << CF::Number.from_i(123)}.to_not raise_error
+        expect(subject[0] == CF::Number.from_i(123)).to eq(true)
       end
     end
 
