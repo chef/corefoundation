@@ -69,6 +69,7 @@ describe CF::Refinements do
       
       it "should return true for ascii 8bit strings" do
         expect("123".encode(Encoding::ASCII_8BIT).binary?).to eq true
+        expect('123'.binary!(Encoding::ASCII_8BIT).binary?).to eq true
       end
     end
   end
