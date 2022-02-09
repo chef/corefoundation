@@ -11,7 +11,6 @@ describe CF::Base do
         expect(subject == 1).to eq(false)
       end
     end
-
   end
 
   context 'equals?' do
@@ -42,6 +41,26 @@ describe CF::Base do
       sample = CF::String.from_string("sample")
       sample = nil
       GC.start
+    end
+  end
+
+  describe 'to_ruby' do
+    subject { CF::NULL }
+
+    it { is_expected.to be_a(CF::Base) }
+
+    it 'should raise exception as default implementation' do
+      expect { subject.to_ruby }.to raise_error
+    end
+  end
+
+  describe 'to_cf' do
+    subject { CF::NULL }
+
+    it { is_expected.to be_a(CF::Base) }
+
+    it 'should raise exception as default implementation' do
+      expect(subject.to_cf).to be_a(CF::Base)
     end
   end
 end
