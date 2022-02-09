@@ -44,13 +44,4 @@ describe CF::Base do
       GC.start
     end
   end
-
-  describe 'klass_from_cf_type' do
-    subject { FFI::MemoryPointer.new(:pointer) }
-
-    it 'raises error when provided with a type that not registered' do
-      expect { CF::Base.typecast(subject) }.to raise_error(TypeError)
-    end
-  end
-
 end
