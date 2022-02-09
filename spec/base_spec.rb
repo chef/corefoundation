@@ -35,4 +35,13 @@ describe CF::Base do
       end
     end
   end
+
+  context 'finalizer' do
+    it 'successfully runs for a valid CFBase object' do
+      expect(CF::Base).to receive(:finalize).and_call_original
+      sample = CF::String.from_string("sample")
+      sample = nil
+      GC.start
+    end
+  end
 end
