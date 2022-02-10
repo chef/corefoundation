@@ -8,7 +8,7 @@ SimpleCov.start do
   track_files '{lib}/**/*.rb'
   enable_coverage :branch
   refuse_coverage_drop :line, :branch
-  minimum_coverage line: 95, branch: 80
+  minimum_coverage line: 95, branch: 90
   formatter SimpleCov::Formatter::Console
 end
 
