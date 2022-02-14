@@ -1,16 +1,17 @@
 # corefoundation changelog
 
-<!-- latest_release 0.3.12 -->
-## [v0.3.12](https://github.com/chef/corefoundation/tree/v0.3.12) (2022-02-14)
+<!-- latest_release 0.3.13 -->
+## [v0.3.13](https://github.com/chef/corefoundation/tree/v0.3.13) (2022-02-14)
 
 #### Merged Pull Requests
-- Set up test coverage and update tests [#36](https://github.com/chef/corefoundation/pull/36) ([rishichawda](https://github.com/rishichawda))
+- fix ruby 3.1 issue on releasing pointer [#37](https://github.com/chef/corefoundation/pull/37) ([rishichawda](https://github.com/rishichawda))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.3.10 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- fix ruby 3.1 issue on releasing pointer [#37](https://github.com/chef/corefoundation/pull/37) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.13 -->
 - Set up test coverage and update tests [#36](https://github.com/chef/corefoundation/pull/36) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.12 -->
 - Update chefstyle requirement from = 2.2.0 to = 2.2.1 [#34](https://github.com/chef/corefoundation/pull/34) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.11 -->
 <!-- release_rollup -->
