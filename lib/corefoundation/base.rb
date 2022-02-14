@@ -33,11 +33,12 @@ module CF
     def initialize(pointer)
       @ptr = FFI::Pointer.new(pointer)
       ObjectSpace.define_finalizer(self, self.class.finalize(ptr))
+      CF.retain(ptr)
     end
 
     # @param [FFI::Pointer] pointer to the address of the object
     def self.finalize(pointer)
-      proc { CF.release(pointer.address) unless pointer.address.zero? }
+      proc { CF.release(pointer) unless pointer.address.zero? }
     end
 
     # Whether the instance is the CFNull singleton

@@ -49,7 +49,7 @@ module CF
       range[:location] = 0
       range[:length] = length
       callback = lambda do |value, _|
-        yield Base.typecast(value).retain
+        yield Base.typecast(value)
       end
       CF.CFArrayApplyFunction(self, range, callback, nil)
       self
@@ -79,7 +79,7 @@ module CF
     # @param [Integer] index the 0 based index of the item to retrieve. Behaviour is undefined if it is not in the range 0...size
     # @return [CF::Base] a subclass of CF::Base
     def [](index)
-      Base.typecast(CF.CFArrayGetValueAtIndex(self, index)).retain
+      Base.typecast(CF.CFArrayGetValueAtIndex(self, index))
     end
 
     # Sets object at the index
