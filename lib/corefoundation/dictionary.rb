@@ -55,7 +55,7 @@ module CF
 
     def each
       callback = lambda do |key, value, _|
-        yield [Base.typecast(key).retain, Base.typecast(value).retain]
+        yield [Base.typecast(key), Base.typecast(value)]
       end
       CF.CFDictionaryApplyFunction(self, callback, nil)
       self
@@ -70,7 +70,7 @@ module CF
       key = CF::String.from_string(key) if key.is_a?(::String)
       self.class.check_cftype(key)
       raw = CF.CFDictionaryGetValue(self, key)
-      raw.null? ? nil : self.class.typecast(raw).retain
+      raw.null? ? nil : self.class.typecast(raw)
     end
 
     # Sets the value associated with the key, or nil
