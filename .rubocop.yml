@@ -3,3 +3,5 @@ AllCops:
   Exclude:
     - '**/Gemfile'
     - '**/Rakefile'
+Style/SymbolArray:
+  EnforcedStyle: brackets

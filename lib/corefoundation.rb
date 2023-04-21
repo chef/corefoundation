@@ -2,7 +2,7 @@ require "ffi" unless defined?(FFI)
 
 module CF
   extend FFI::Library
-  ffi_lib '/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation'
+  ffi_lib [ '/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation', 'libCoreFoundation.so' ]
 
   if FFI::Platform::ARCH == 'x86_64'
     typedef :long_long, :cfindex
@@ -36,3 +36,4 @@ require_relative 'corefoundation/number'
 require_relative 'corefoundation/date'
 require_relative 'corefoundation/exceptions'
 require_relative 'corefoundation/preferences'
+require_relative 'corefoundation/url'
