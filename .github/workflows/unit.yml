@@ -13,21 +13,13 @@ jobs:
     strategy:
       matrix:
         include:
-          # Intel runners - oldest supported (macos-12)
-          - os: macos-12
-            ruby: '3.1'
-            architecture: 'Intel'
-          - os: macos-12
-            ruby: '3.4'
-            architecture: 'Intel'
-          # Intel runners - newest (macos-13)
+          # Intel runners
           - os: macos-13
             ruby: '3.1'
             architecture: 'Intel'
           - os: macos-13
             ruby: '3.4'
             architecture: 'Intel'
-          # Intel runners - macos-15-xlarge (Intel on macOS 15)
           - os: macos-15-intel
             ruby: '3.1'
             architecture: 'Intel'
