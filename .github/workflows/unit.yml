@@ -9,12 +9,12 @@ name: unit
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos]
+        os: [macos-12, macos-15]
         ruby: ['3.1', '3.4']
-    name: Unit test on Ruby ${{ matrix.os }} with Ruby ${{ matrix.ruby }}
+    name: Unit test on ${{ matrix.os }} with Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
