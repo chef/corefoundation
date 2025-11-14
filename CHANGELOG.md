@@ -1,16 +1,17 @@
 # corefoundation changelog
 
-<!-- latest_release 0.3.16 -->
-## [v0.3.16](https://github.com/chef/corefoundation/tree/v0.3.16) (2025-09-22)
+<!-- latest_release 0.3.17 -->
+## [v0.3.17](https://github.com/chef/corefoundation/tree/v0.3.17) (2025-11-14)
 
 #### Merged Pull Requests
-- Add GitHub Security Actions Workflow [#43](https://github.com/chef/corefoundation/pull/43) ([sean-sype-simmons](https://github.com/sean-sype-simmons))
+- set up ai assisted development workflow [#47](https://github.com/chef/corefoundation/pull/47) ([rishichawda](https://github.com/rishichawda))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.3.13 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- set up ai assisted development workflow [#47](https://github.com/chef/corefoundation/pull/47) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.17 -->
 - Add GitHub Security Actions Workflow [#43](https://github.com/chef/corefoundation/pull/43) ([sean-sype-simmons](https://github.com/sean-sype-simmons)) <!-- 0.3.16 -->
 - ruby 3.4 upgrade [#42](https://github.com/chef/corefoundation/pull/42) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.15 -->
 - Update chefstyle requirement from = 2.2.1 to = 2.2.2 [#38](https://github.com/chef/corefoundation/pull/38) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.14 -->
