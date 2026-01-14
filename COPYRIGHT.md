@@ -1,1 +1,1 @@
-Copyright © 2012-2025 Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved
+Copyright © 2012-2025 Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.
