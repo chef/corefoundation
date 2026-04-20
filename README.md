@@ -72,3 +72,7 @@ Should work in MRI 2.6 and above and jruby. Not compatible with rubinius due to 
 ## License
 
 Released under the MIT license. See LICENSE
+
+# Copyright
+
+See [COPYRIGHT.md](./COPYRIGHT.md).
