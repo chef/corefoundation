@@ -28,10 +28,17 @@ describe CF::Preferences do
   describe "self.set" do
     context "when called with valid domain/default pair" do
       context "(with username and hostname)" do
-        it "executes CF.CFPreferencesSetValue and returns true" do
+        it "executes CF.CFPreferencesSetValue and CFPreferencesSynchronize and returns true" do
           expect(CF).to receive(:CFPreferencesSetValue).with(@cf_key, @cf_value, @cf_domain, @cf_user, @cf_hostname)
-          expect(CF).to receive(:CFPreferencesAppSynchronize).with(@cf_domain).and_return(pref_sync_passed.result)
+          expect(CF).to receive(:CFPreferencesSynchronize).with(@cf_domain, @cf_user, @cf_hostname)
           expect(CF::Preferences.set(@key, @value, @domain, @user, @hostname)).to eql(true)
+        end
+      end
+      context "(with FFI::Pointer constants for username and hostname)" do
+        it "passes pointer values directly without conversion" do
+          expect(CF).to receive(:CFPreferencesSetValue).with(@cf_key, @cf_value, @cf_domain, CF::Preferences::CURRENT_USER, CF::Preferences::CURRENT_HOST)
+          expect(CF).to receive(:CFPreferencesSynchronize).with(@cf_domain, CF::Preferences::CURRENT_USER, CF::Preferences::CURRENT_HOST)
+          expect(CF::Preferences.set(@key, @value, @domain, CF::Preferences::CURRENT_USER, CF::Preferences::CURRENT_HOST)).to eql(true)
         end
       end
       context "(without username and hostname)" do
@@ -43,13 +50,6 @@ describe CF::Preferences do
       end
     end
     context "when called with invalid domain/default pair" do
-      context "(with username and hostname)" do
-        it "executes CF.CFPreferencesSetValue and returns false" do
-          expect(CF).to receive(:CFPreferencesSetValue).with(@cf_key, @cf_value, @cf_domain, @cf_user, @cf_hostname)
-          expect(CF).to receive(:CFPreferencesAppSynchronize).with(@cf_domain).and_return(pref_sync_failed.result)
-          expect(CF::Preferences.set(@key, @value, @domain, @user, @hostname)).to eql(false)
-        end
-      end
       context "(without username and hostname)" do
         it "executes CF.CFPreferencesSetAppValue and returns false" do
           expect(CF).to receive(:CFPreferencesSetAppValue).with(@cf_key, @cf_value, @cf_domain)
@@ -63,9 +63,9 @@ describe CF::Preferences do
   describe "self.set!" do
     context "when called with valid domain/default pair" do
       context "(with username and hostname)" do
-        it "executes CF.CFPreferencesSetValue and returns nil" do
+        it "executes CF.CFPreferencesSetValue and CFPreferencesSynchronize and returns nil" do
           expect(CF).to receive(:CFPreferencesSetValue).with(@cf_key, @cf_value, @cf_domain, @cf_user, @cf_hostname)
-          expect(CF).to receive(:CFPreferencesAppSynchronize).with(@cf_domain).and_return(pref_sync_passed.result)
+          expect(CF).to receive(:CFPreferencesSynchronize).with(@cf_domain, @cf_user, @cf_hostname)
           expect(CF::Preferences.set!(@key, @value, @domain, @user, @hostname)).to eql(nil)
         end
       end
@@ -78,13 +78,6 @@ describe CF::Preferences do
       end
     end
     context "when called with invalid domain/default pair" do
-      context "(with username and hostname)" do
-        it "executes CF.CFPreferencesSetValue and raises error" do
-          expect(CF).to receive(:CFPreferencesSetValue).with(@cf_key, @cf_value, @cf_domain, @cf_user, @cf_hostname)
-          expect(CF).to receive(:CFPreferencesAppSynchronize).with(@cf_domain).and_return(pref_sync_failed.result)
-          expect { CF::Preferences.set!(@key, @value, @domain, @user, @hostname) }.to raise_error CF::Exceptions::PreferenceSyncFailed
-        end
-      end
       context "(without username and hostname)" do
         it "executes CF.CFPreferencesSetAppValue and raises error" do
           expect(CF).to receive(:CFPreferencesSetAppValue).with(@cf_key, @cf_value, @cf_domain)

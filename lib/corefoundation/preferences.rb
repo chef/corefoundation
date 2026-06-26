@@ -18,6 +18,7 @@ module CF
   attach_function 'CFPreferencesSetValue', [:key, :value, :application_id, :username, :hostname], :void
 
   attach_function 'CFPreferencesAppSynchronize', [:application_id], :bool
+  attach_function 'CFPreferencesSynchronize', [:application_id, :username, :hostname], :void
 
   # Interface to the preference utilities from Corefoundation.framework.
   # Documentation at https://developer.apple.com/documentation/corefoundation/preferences_utilities
@@ -93,14 +94,16 @@ module CF
             arg_to_cf(username),
             arg_to_cf(hostname)
           )
+          CF.CFPreferencesSynchronize(application_id.to_cf, arg_to_cf(username), arg_to_cf(hostname))
+          true
         else
           CF.CFPreferencesSetAppValue(
             key.to_cf,
             arg_to_cf(value),
             application_id.to_cf
           )
+          CF.CFPreferencesAppSynchronize(application_id.to_cf)
         end
-        CF.CFPreferencesAppSynchronize(application_id.to_cf)
       end
 
       # Calls the {#self.set} method and raise a `PreferenceSyncFailed` error if `false` is returned.
