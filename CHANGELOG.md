@@ -1,16 +1,17 @@
 # corefoundation changelog
 
-<!-- latest_release 0.3.18 -->
-## [v0.3.18](https://github.com/chef/corefoundation/tree/v0.3.18) (2025-11-18)
+<!-- latest_release 0.3.19 -->
+## [v0.3.19](https://github.com/chef/corefoundation/tree/v0.3.19) (2026-06-29)
 
 #### Merged Pull Requests
-- Update Copilot instructions with AI compliance workflow [#49](https://github.com/chef/corefoundation/pull/49) ([rishichawda](https://github.com/rishichawda))
+- fix preferences sync call [#52](https://github.com/chef/corefoundation/pull/52) ([rishichawda](https://github.com/rishichawda))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.3.13 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- fix preferences sync call [#52](https://github.com/chef/corefoundation/pull/52) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.19 -->
 - Update Copilot instructions with AI compliance workflow [#49](https://github.com/chef/corefoundation/pull/49) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.18 -->
 - set up ai assisted development workflow [#47](https://github.com/chef/corefoundation/pull/47) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.17 -->
 - Add GitHub Security Actions Workflow [#43](https://github.com/chef/corefoundation/pull/43) ([sean-sype-simmons](https://github.com/sean-sype-simmons)) <!-- 0.3.16 -->
