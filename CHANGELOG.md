@@ -1,32 +1,29 @@
 # corefoundation changelog
 
-<!-- latest_release 0.3.19 -->
-## [v0.3.19](https://github.com/chef/corefoundation/tree/v0.3.19) (2026-06-29)
-
-#### Merged Pull Requests
-- fix preferences sync call [#52](https://github.com/chef/corefoundation/pull/52) ([rishichawda](https://github.com/rishichawda))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=0.3.13 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- fix preferences sync call [#52](https://github.com/chef/corefoundation/pull/52) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.19 -->
-- Update Copilot instructions with AI compliance workflow [#49](https://github.com/chef/corefoundation/pull/49) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.18 -->
-- set up ai assisted development workflow [#47](https://github.com/chef/corefoundation/pull/47) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.17 -->
-- Add GitHub Security Actions Workflow [#43](https://github.com/chef/corefoundation/pull/43) ([sean-sype-simmons](https://github.com/sean-sype-simmons)) <!-- 0.3.16 -->
-- ruby 3.4 upgrade [#42](https://github.com/chef/corefoundation/pull/42) ([rishichawda](https://github.com/rishichawda)) <!-- 0.3.15 -->
-- Update chefstyle requirement from = 2.2.1 to = 2.2.2 [#38](https://github.com/chef/corefoundation/pull/38) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 0.3.14 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v0.3.19](https://github.com/chef/corefoundation/tree/v0.3.19) (2026-06-30)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from = 2.2.1 to = 2.2.2 [#38](https://github.com/chef/corefoundation/pull/38) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- ruby 3.4 upgrade [#42](https://github.com/chef/corefoundation/pull/42) ([rishichawda](https://github.com/rishichawda))
+- Add GitHub Security Actions Workflow [#43](https://github.com/chef/corefoundation/pull/43) ([sean-sype-simmons](https://github.com/sean-sype-simmons))
+- set up ai assisted development workflow [#47](https://github.com/chef/corefoundation/pull/47) ([rishichawda](https://github.com/rishichawda))
+- Update Copilot instructions with AI compliance workflow [#49](https://github.com/chef/corefoundation/pull/49) ([rishichawda](https://github.com/rishichawda))
+- fix preferences sync call [#52](https://github.com/chef/corefoundation/pull/52) ([rishichawda](https://github.com/rishichawda))
+<!-- latest_stable_release -->
+
 ## [v0.3.13](https://github.com/chef/corefoundation/tree/v0.3.13) (2022-02-14)
 
 #### Merged Pull Requests
 - Update chefstyle requirement from = 2.2.0 to = 2.2.1 [#34](https://github.com/chef/corefoundation/pull/34) ([dependabot[bot]](https://github.com/dependabot[bot]))
 - Set up test coverage and update tests [#36](https://github.com/chef/corefoundation/pull/36) ([rishichawda](https://github.com/rishichawda))
 - fix ruby 3.1 issue on releasing pointer [#37](https://github.com/chef/corefoundation/pull/37) ([rishichawda](https://github.com/rishichawda))
-<!-- latest_stable_release -->
 
 ## [v0.3.10](https://github.com/chef/corefoundation/tree/v0.3.10) (2022-01-21)
 
